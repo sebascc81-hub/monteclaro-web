@@ -3,40 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monteclaro Inmobiliaria SAS | Buscador Avanzado</title>
+    <title>Monteclaro Inmobiliaria SAS | Soluciones de Vivienda 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Paleta Oficial Monteclaro */
         .bg-monteclaro-blue { background-color: #2638bf; }
         .text-monteclaro-blue { color: #2638bf; }
         .bg-monteclaro-silver { background-color: #b2b8bf; }
         .border-monteclaro-silver { border-color: #b2b8bf; }
+        .bg-monteclaro-black { background-color: #000000; }
+        
+        /* Estilos de Navegación */
         .nav-link { font-weight: 800; text-transform: uppercase; font-size: 0.85rem; color: #000000; transition: color 0.3s; }
         .nav-link:hover { color: #2638bf; }
-        .property-card { border: 1px solid #b2b8bf; background: white; transition: transform 0.3s; }
-        .property-card:hover { transform: translateY(-5px); }
-        .btn-search { background-color: #000000; color: #ffffff; font-weight: 800; transition: all 0.3s; }
-        .btn-search:hover { background-color: #2638bf; }
-        html { scroll-behavior: smooth; }
+        
+        /* Estilos de Buscador */
         label { color: white; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         select, input { border-radius: 0px !important; font-weight: 600; font-size: 12px; }
+        .btn-search { background-color: #000000; color: #ffffff; font-weight: 800; transition: all 0.3s; }
+        .btn-search:hover { background-color: #b2b8bf; color: #000000; }
+
+        /* Estilos de Tarjetas */
+        .property-card { border: 1px solid #b2b8bf; overflow: hidden; background: white; transition: transform 0.3s; }
+        .property-card:hover { transform: translateY(-5px); }
+        .property-footer { background-color: #f1f2f3; border-top: 1px solid #b2b8bf; font-size: 0.75rem; color: #000000; }
+        
+        html { scroll-behavior: smooth; }
     </style>
 </head>
 <body class="bg-white font-sans text-black">
 
     <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-monteclaro-silver">
-        <div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row justify-between items-center gap-6">
-            <h1 class="text-2xl font-black tracking-tighter">
-                <span class="text-monteclaro-blue">MONTECLARO</span> <span class="text-black italic">SAS</span>
-            </h1>
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8">
-                <a href="#inicio" class="nav-link">Inicio</a>
-                <a href="#propiedades" class="nav-link">Ventas</a>
-                <a href="#propiedades" class="nav-link">Alquileres</a>
-                <a href="#" class="nav-link">Permutar</a>
-                <a href="#" class="nav-link">Blog</a>
-                <a href="#" class="nav-link">Nuestra Empresa</a>
-                <a href="#contacto" class="nav-link">Contáctenos</a>
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col lg:flex-row justify-between items-center gap-6">
+                <h1 class="text-2xl font-black tracking-tighter">
+                    <span class="text-monteclaro-blue">MONTECLARO</span> <span class="text-black italic">SAS</span>
+                </h1>
+                <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+                    <a href="#inicio" class="nav-link">Inicio</a>
+                    <a href="#propiedades" class="nav-link" onclick="setFilter('Venta')">Ventas</a>
+                    <a href="#propiedades" class="nav-link" onclick="setFilter('Renta')">Alquileres</a>
+                    <a href="https://wa.me/57TUNUMERO?text=Deseo información sobre Permutas" class="nav-link">Permutar</a>
+                    <a href="#" class="nav-link">Blog</a>
+                    <a href="#financial" class="nav-link">Nuestra Empresa</a>
+                    <a href="#contacto" class="nav-link">Contáctenos</a>
+                </div>
             </div>
         </div>
     </nav>
@@ -86,36 +98,76 @@
                 </div>
             </div>
             <div class="mt-6 flex justify-end">
-                <button onclick="applyFilters()" class="btn-search px-14 py-3 uppercase text-sm tracking-widest shadow-xl">Buscar</button>
+                <button onclick="applyFilters()" class="btn-search px-14 py-4 uppercase text-xs tracking-widest shadow-xl">Buscar Propiedad</button>
             </div>
         </div>
     </header>
 
     <section id="propiedades" class="container mx-auto py-20 px-4">
-        <h2 class="text-3xl font-black uppercase text-center mb-12 italic">INMUEBLES <span class="text-monteclaro-blue">DESTACADOS</span></h2>
-        <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="flex flex-col items-center mb-12">
+            <h3 class="text-3xl font-black uppercase italic tracking-tighter">
+                INMUEBLES <span class="text-monteclaro-blue">DESTACADOS</span>
+            </h3>
+            <div class="h-1.5 w-24 bg-monteclaro-blue mt-2"></div>
+        </div>
+        <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             </div>
     </section>
 
-    <section class="bg-black text-white py-12 px-4 border-t-4 border-monteclaro-blue">
-        <div class="container mx-auto text-center">
-            <h3 class="text-xl font-black mb-4 uppercase tracking-widest">Financial Group</h3>
-            <p class="text-monteclaro-silver text-sm max-w-2xl mx-auto mb-6">
-                Gestionamos su crédito con el SMMLV 2026 de $1.750.905. Subsidios hasta $52.527.150.
-            </p>
-            <a href="https://wa.me/57TUNUMERO" class="bg-monteclaro-blue px-8 py-3 font-bold uppercase text-[10px] tracking-widest">Consultar Crédito</a>
+    <section id="financial" class="bg-black text-white py-20 px-4 border-t-8 border-monteclaro-blue">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <span class="text-monteclaro-blue font-bold tracking-widest text-xs uppercase">Aliado Estratégico</span>
+                <h3 class="text-4xl font-black mt-2 mb-6 uppercase italic">Financial Group</h3>
+                <p class="text-monteclaro-silver leading-relaxed mb-8 text-lg">
+                    Para el 2026, con un SMMLV de **$1.750.905**, gestionamos subsidios de hasta **$52.527.150** (30 SMMLV) para su cuota inicial. Tramitamos su crédito de vivienda VIS hasta los **$262.635.000**.
+                </p>
+                <a href="https://wa.me/57TUNUMERO" class="bg-monteclaro-blue text-white px-10 py-4 font-black hover:bg-white hover:text-black transition uppercase text-xs tracking-widest">Consultar mi Subsidio</a>
+            </div>
+            <div class="bg-white p-10 text-black border-l-8 border-monteclaro-blue shadow-2xl">
+                <h4 class="text-xl font-black mb-4 uppercase">REQUISITOS 2026</h4>
+                <ul class="space-y-3 text-xs font-bold uppercase text-gray-600">
+                    <li><i class="fas fa-check text-monteclaro-blue mr-2"></i> Ingresos hasta 4 SMMLV ($7.003.620)</li>
+                    <li><i class="fas fa-check text-monteclaro-blue mr-2"></i> No ser propietario de vivienda</li>
+                    <li><i class="fas fa-check text-monteclaro-blue mr-2"></i> Sisbén IV (A1 a D20)</li>
+                </ul>
+            </div>
         </div>
     </section>
 
+    <footer id="contacto" class="bg-white border-t border-monteclaro-silver py-16 px-4">
+        <div class="container mx-auto grid md:grid-cols-3 gap-12 text-center md:text-left">
+            <div>
+                <h4 class="text-xl font-black mb-6 text-monteclaro-blue">MONTECLARO SAS</h4>
+                <p class="text-gray-500 text-[10px] uppercase font-bold leading-loose tracking-widest">Expertos en consultoría inmobiliaria, ventas, rentas y soluciones financieras en el Eje Cafetero.</p>
+            </div>
+            <div class="uppercase font-bold text-[10px] tracking-widest">
+                <h4 class="mb-6 text-black">Contacto Directo</h4>
+                <p class="text-gray-500 mb-2 italic">WhatsApp: +57 TUNUMERO</p>
+                <p class="text-gray-500 italic">Pereira, Risaralda - Colombia</p>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-bold mb-6 uppercase tracking-widest text-black">Redes Sociales</h4>
+                <div class="flex justify-center md:justify-start gap-6 text-xl text-black">
+                    <a href="#" class="hover:text-monteclaro-blue"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-monteclaro-blue"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-16 text-[8px] text-gray-400 uppercase tracking-[0.3em]">
+            © 2026 Monteclaro Inmobiliaria SAS - Aliado Financial Group.
+        </div>
+    </footer>
+
     <script>
-        // BASE DE DATOS: Asegúrate de llenar todos estos campos para que los filtros funcionen
         const propiedades = [
             { id: 1, titulo: "Casa Campestre El Manzano", ciudad: "Pereira", localidad: "Centro", zona: "El Manzano", tipo: "Casa Campestre", estado: "Usado", negocio: "Venta", alcobas: 4, banos: 5, precio: 3800000000, area: 2500, imagen: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600" },
             { id: 2, titulo: "Hacienda Malabar", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", tipo: "Casa Campestre", estado: "Nuevo", negocio: "Venta", alcobas: 6, banos: 7, precio: 11000000000, area: 5000, imagen: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=600" },
-            { id: 3, titulo: "Apartamento Pinares", ciudad: "Pereira", localidad: "Pinares", zona: "Sector Norte", tipo: "Apartamento", estado: "Usado", negocio: "Renta", alcobas: 3, banos: 2, precio: 4500000, area: 120, imagen: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600" }
+            { id: 3, titulo: "Apartamento Premium Pinares", ciudad: "Pereira", localidad: "Pinares", zona: "Norte", tipo: "Apartamento", estado: "Usado", negocio: "Renta", alcobas: 3, banos: 2, precio: 4500000, area: 120, imagen: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600" },
+            { id: 4, titulo: "Hotel Campestre Santa Rosa", ciudad: "Santa Rosa", localidad: "Termales", zona: "Rural", tipo: "Hotel", estado: "Usado", negocio: "Venta", alcobas: 12, banos: 12, precio: 2800000000, area: 1200, imagen: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600" }
         ];
 
-        // Función que llena los 8 selectores automáticamente
+        // Llenado automático de los 8 selectores dinámicos
         function populateFilters() {
             const fields = ['ciudad', 'localidad', 'zona', 'tipo', 'estado', 'negocio', 'alcobas', 'banos'];
             fields.forEach(field => {
@@ -131,22 +183,28 @@
             const grid = document.getElementById('properties-grid');
             grid.innerHTML = '';
             if(data.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center py-20 font-bold uppercase text-gray-400">Sin resultados con estos filtros.</p>';
+                grid.innerHTML = '<p class="col-span-full text-center py-20 font-bold uppercase text-gray-400">No se encontraron resultados.</p>';
                 return;
             }
             data.forEach(p => {
                 grid.innerHTML += `
                     <div class="property-card flex flex-col">
-                        <img src="${p.imagen}" class="w-full h-48 object-cover border-b border-monteclaro-silver">
-                        <div class="p-4 flex-grow">
-                            <p class="text-xl font-black">$${p.precio.toLocaleString()} <span class="text-[9px] text-gray-400 uppercase">COP | ${p.negocio}</span></p>
-                            <h4 class="text-monteclaro-blue font-bold text-xs mt-3 uppercase h-8 overflow-hidden">${p.titulo}</h4>
-                            <p class="text-[10px] text-gray-500 mt-4 uppercase"><i class="fas fa-map-marker-alt text-black mr-1"></i> ${p.ciudad}, ${p.zona}</p>
+                        <div class="h-52 overflow-hidden relative">
+                            <img src="${p.imagen}" class="w-full h-full object-cover">
+                            <span class="absolute top-0 right-0 bg-black text-white text-[8px] font-bold px-4 py-1 uppercase tracking-widest">${p.negocio}</span>
                         </div>
-                        <div class="grid grid-cols-3 text-center p-2 text-[9px] font-black uppercase border-t border-monteclaro-silver bg-slate-50">
-                            <div class="border-r border-monteclaro-silver">Área m² <br>${p.area}</div>
-                            <div class="border-r border-monteclaro-silver">Alcobas <br>${p.alcobas}</div>
-                            <div>Baños <br>${p.banos}</div>
+                        <div class="p-6 flex-grow">
+                            <p class="text-2xl font-black text-black leading-none">$${p.precio.toLocaleString()}</p>
+                            <p class="text-[9px] text-monteclaro-blue font-bold uppercase mt-1 italic">COP | Operación Activa</p>
+                            <h4 class="text-monteclaro-blue font-bold text-xs mt-4 leading-tight h-10 overflow-hidden uppercase tracking-tighter">${p.titulo}</h4>
+                            <p class="text-gray-500 text-[10px] mt-4 flex items-center font-bold">
+                                <i class="fas fa-map-marker-alt text-black mr-2"></i> ${p.ciudad}, ${p.zona}
+                            </p>
+                        </div>
+                        <div class="property-footer grid grid-cols-3 text-center p-3 uppercase font-black tracking-tighter border-t border-monteclaro-silver">
+                            <div class="border-r border-monteclaro-silver">Área m² <br><span class="text-monteclaro-blue text-sm">${p.area}</span></div>
+                            <div class="border-r border-monteclaro-silver">Alcobas <br><span class="text-monteclaro-blue text-sm">${p.alcobas}</span></div>
+                            <div>Baños <br><span class="text-monteclaro-blue text-sm">${p.banos}</span></div>
                         </div>
                     </div>
                 `;
@@ -184,6 +242,7 @@
             window.location.href = "#propiedades";
         }
 
+        // Ejecución inicial al cargar
         populateFilters();
         renderProperties(propiedades);
     </script>
