@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monteclaro Inmobiliaria SAS | Filtros Inteligentes</title>
+    <title>Monteclaro Inmobiliaria SAS | Buscador Avanzado</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
@@ -16,8 +16,10 @@
         .property-card { border: 1px solid #b2b8bf; background: white; transition: transform 0.3s; }
         .property-card:hover { transform: translateY(-5px); }
         .btn-search { background-color: #000000; color: #ffffff; font-weight: 800; transition: all 0.3s; }
-        .btn-search:hover { background-color: #b2b8bf; color: #000000; }
+        .btn-search:hover { background-color: #2638bf; }
         html { scroll-behavior: smooth; }
+        label { color: white; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        select, input { border-radius: 0px !important; font-weight: 600; font-size: 12px; }
     </style>
 </head>
 <body class="bg-white font-sans text-black">
@@ -39,97 +41,112 @@
         </div>
     </nav>
 
-    <header id="inicio" class="bg-monteclaro-blue py-10 px-4 border-b-8 border-black">
+    <header id="inicio" class="bg-monteclaro-blue py-8 px-4 border-b-8 border-black">
         <div class="container mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
                 <div class="space-y-1">
-                    <label class="text-white text-[10px] font-bold uppercase tracking-widest">Ciudad:</label>
-                    <select id="select-city" class="w-full p-3 text-sm rounded-none outline-none font-bold italic border-r-4 border-black">
-                        <option value="">Todas las ciudades</option>
-                    </select>
+                    <label>Ciudad:</label>
+                    <select id="f-ciudad" class="w-full p-2 outline-none"><option value="">Todos</option></select>
                 </div>
                 <div class="space-y-1">
-                    <label class="text-white text-[10px] font-bold uppercase tracking-widest">Localidad / Zona:</label>
-                    <select id="select-locality" class="w-full p-3 text-sm rounded-none outline-none font-bold italic border-r-4 border-black">
-                        <option value="">Todas las zonas</option>
-                    </select>
+                    <label>Localidad:</label>
+                    <select id="f-localidad" class="w-full p-2 outline-none"><option value="">Todos</option></select>
                 </div>
                 <div class="space-y-1">
-                    <label class="text-white text-[10px] font-bold uppercase tracking-widest">Tipo de Inmueble:</label>
-                    <select id="select-type" class="w-full p-3 text-sm rounded-none outline-none font-bold italic border-r-4 border-black">
-                        <option value="">Todos los tipos</option>
-                    </select>
+                    <label>Zona / barrio:</label>
+                    <select id="f-zona" class="w-full p-2 outline-none"><option value="">Todos</option></select>
                 </div>
                 <div class="space-y-1">
-                    <label class="text-white text-[10px] font-bold uppercase tracking-widest">Precio Máximo (COP):</label>
-                    <input type="number" id="input-price" placeholder="Ej: 500000000" class="w-full p-3 text-sm rounded-none outline-none font-bold">
+                    <label>Tipo de inmueble:</label>
+                    <select id="f-tipo" class="w-full p-2 outline-none"><option value="">Todos</option></select>
+                </div>
+                <div class="space-y-1">
+                    <label>Estado Propiedad:</label>
+                    <select id="f-estado" class="w-full p-2 outline-none"><option value="">Todos</option></select>
+                </div>
+                <div class="space-y-1">
+                    <label>Tipo de negocio:</label>
+                    <select id="f-negocio" class="w-full p-2 outline-none"><option value="">Todos</option></select>
+                </div>
+                <div class="space-y-1">
+                    <label>Alcobas:</label>
+                    <select id="f-alcobas" class="w-full p-2 outline-none"><option value="">Todos</option></select>
+                </div>
+                <div class="space-y-1">
+                    <label>Baños:</label>
+                    <select id="f-banos" class="w-full p-2 outline-none"><option value="">Todos</option></select>
+                </div>
+                <div class="space-y-1">
+                    <label>Precio desde:</label>
+                    <input type="number" id="f-p-min" placeholder="Desde" class="w-full p-2 outline-none">
+                </div>
+                <div class="space-y-1">
+                    <label>Precio hasta:</label>
+                    <input type="number" id="f-p-max" placeholder="Hasta" class="w-full p-2 outline-none">
                 </div>
             </div>
-            <div class="mt-8 flex justify-end">
-                <button onclick="applyFilters()" class="btn-search px-16 py-4 uppercase text-xs tracking-widest shadow-2xl">Filtrar Resultados</button>
+            <div class="mt-6 flex justify-end">
+                <button onclick="applyFilters()" class="btn-search px-14 py-3 uppercase text-sm tracking-widest shadow-xl">Buscar</button>
             </div>
         </div>
     </header>
 
     <section id="propiedades" class="container mx-auto py-20 px-4">
-        <h2 class="text-3xl font-black uppercase text-center mb-12">Portafolio <span class="text-monteclaro-blue">Monteclaro</span></h2>
-        <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <h2 class="text-3xl font-black uppercase text-center mb-12 italic">INMUEBLES <span class="text-monteclaro-blue">DESTACADOS</span></h2>
+        <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             </div>
     </section>
 
-    <section class="bg-black text-white py-16 px-4 border-y-4 border-monteclaro-blue">
+    <section class="bg-black text-white py-12 px-4 border-t-4 border-monteclaro-blue">
         <div class="container mx-auto text-center">
-            <h3 class="text-2xl font-black mb-4 tracking-widest uppercase">Aliado Financial Group</h3>
-            <p class="text-monteclaro-silver max-w-2xl mx-auto mb-8">
-                Tramitamos tu crédito con el SMMLV 2026 de $1.750.905. Gestionamos subsidios de hasta 30 SMMLV para tu cuota inicial.
+            <h3 class="text-xl font-black mb-4 uppercase tracking-widest">Financial Group</h3>
+            <p class="text-monteclaro-silver text-sm max-w-2xl mx-auto mb-6">
+                Gestionamos su crédito con el SMMLV 2026 de $1.750.905. Subsidios hasta $52.527.150.
             </p>
-            <a href="https://wa.me/57TUNUMERO" class="bg-monteclaro-blue text-white px-10 py-3 font-bold uppercase text-xs tracking-widest">Asesoría de Crédito</a>
+            <a href="https://wa.me/57TUNUMERO" class="bg-monteclaro-blue px-8 py-3 font-bold uppercase text-[10px] tracking-widest">Consultar Crédito</a>
         </div>
     </section>
 
     <script>
-        // DATOS MAESTROS: Aquí es donde agregas tus propiedades reales
+        // BASE DE DATOS: Asegúrate de llenar todos estos campos para que los filtros funcionen
         const propiedades = [
-            { id: 1, titulo: "Casa Campestre El Manzano", ciudad: "Pereira", localidad: "El Manzano", tipo: "Casa Campestre", negocio: "Venta", precio: 3800000000, imagen: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600" },
-            { id: 2, titulo: "Apto Moderno Pinares", ciudad: "Pereira", localidad: "Pinares", tipo: "Apartamento", negocio: "Renta", precio: 4500000, imagen: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600" },
-            { id: 3, titulo: "Hacienda Malabar", ciudad: "Cerritos", localidad: "Malabar", tipo: "Casa Campestre", negocio: "Venta", precio: 11000000000, imagen: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=600" },
-            { id: 4, titulo: "Hotel Boutique", ciudad: "Santa Rosa", localidad: "Termales", tipo: "Hotel", negocio: "Venta", precio: 2800000000, imagen: "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600" }
+            { id: 1, titulo: "Casa Campestre El Manzano", ciudad: "Pereira", localidad: "Centro", zona: "El Manzano", tipo: "Casa Campestre", estado: "Usado", negocio: "Venta", alcobas: 4, banos: 5, precio: 3800000000, area: 2500, imagen: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=600" },
+            { id: 2, titulo: "Hacienda Malabar", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", tipo: "Casa Campestre", estado: "Nuevo", negocio: "Venta", alcobas: 6, banos: 7, precio: 11000000000, area: 5000, imagen: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=600" },
+            { id: 3, titulo: "Apartamento Pinares", ciudad: "Pereira", localidad: "Pinares", zona: "Sector Norte", tipo: "Apartamento", estado: "Usado", negocio: "Renta", alcobas: 3, banos: 2, precio: 4500000, area: 120, imagen: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=600" }
         ];
 
-        // Función para llenar los filtros automáticamente basándose en la lista de propiedades
+        // Función que llena los 8 selectores automáticamente
         function populateFilters() {
-            const cities = [...new Set(propiedades.map(p => p.ciudad))];
-            const localities = [...new Set(propiedades.map(p => p.localidad))];
-            const types = [...new Set(propiedades.map(p => p.tipo))];
-
-            const fill = (id, list) => {
-                const el = document.getElementById(id);
+            const fields = ['ciudad', 'localidad', 'zona', 'tipo', 'estado', 'negocio', 'alcobas', 'banos'];
+            fields.forEach(field => {
+                const list = [...new Set(propiedades.map(p => p[field]))].sort();
+                const select = document.getElementById('f-' + field);
                 list.forEach(item => {
-                    el.innerHTML += `<option value="${item}">${item}</option>`;
+                    select.innerHTML += `<option value="${item}">${item}</option>`;
                 });
-            };
-
-            fill('select-city', cities);
-            fill('select-locality', localities);
-            fill('select-type', types);
+            });
         }
 
         function renderProperties(data) {
             const grid = document.getElementById('properties-grid');
             grid.innerHTML = '';
             if(data.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center py-10 font-bold uppercase">No se encontraron propiedades con esos criterios.</p>';
+                grid.innerHTML = '<p class="col-span-full text-center py-20 font-bold uppercase text-gray-400">Sin resultados con estos filtros.</p>';
                 return;
             }
             data.forEach(p => {
                 grid.innerHTML += `
                     <div class="property-card flex flex-col">
-                        <img src="${p.imagen}" class="w-full h-60 object-cover border-b border-monteclaro-silver">
-                        <div class="p-6">
-                            <span class="text-[9px] font-black bg-black text-white px-3 py-1 uppercase tracking-widest">${p.negocio}</span>
-                            <h4 class="text-monteclaro-blue font-bold text-sm mt-4 uppercase h-10 overflow-hidden">${p.titulo}</h4>
-                            <p class="text-2xl font-black mt-2 leading-none">$${p.precio.toLocaleString()}</p>
-                            <p class="text-[10px] text-gray-500 mt-4 uppercase font-bold"><i class="fas fa-map-marker-alt text-black mr-2"></i>${p.ciudad} - ${p.localidad}</p>
+                        <img src="${p.imagen}" class="w-full h-48 object-cover border-b border-monteclaro-silver">
+                        <div class="p-4 flex-grow">
+                            <p class="text-xl font-black">$${p.precio.toLocaleString()} <span class="text-[9px] text-gray-400 uppercase">COP | ${p.negocio}</span></p>
+                            <h4 class="text-monteclaro-blue font-bold text-xs mt-3 uppercase h-8 overflow-hidden">${p.titulo}</h4>
+                            <p class="text-[10px] text-gray-500 mt-4 uppercase"><i class="fas fa-map-marker-alt text-black mr-1"></i> ${p.ciudad}, ${p.zona}</p>
+                        </div>
+                        <div class="grid grid-cols-3 text-center p-2 text-[9px] font-black uppercase border-t border-monteclaro-silver bg-slate-50">
+                            <div class="border-r border-monteclaro-silver">Área m² <br>${p.area}</div>
+                            <div class="border-r border-monteclaro-silver">Alcobas <br>${p.alcobas}</div>
+                            <div>Baños <br>${p.banos}</div>
                         </div>
                     </div>
                 `;
@@ -137,23 +154,36 @@
         }
 
         function applyFilters() {
-            const city = document.getElementById('select-city').value;
-            const locality = document.getElementById('select-locality').value;
-            const type = document.getElementById('select-type').value;
-            const price = document.getElementById('input-price').value;
+            const filters = {
+                ciudad: document.getElementById('f-ciudad').value,
+                localidad: document.getElementById('f-localidad').value,
+                zona: document.getElementById('f-zona').value,
+                tipo: document.getElementById('f-tipo').value,
+                estado: document.getElementById('f-estado').value,
+                negocio: document.getElementById('f-negocio').value,
+                alcobas: document.getElementById('f-alcobas').value,
+                banos: document.getElementById('f-banos').value,
+                min: document.getElementById('f-p-min').value,
+                max: document.getElementById('f-p-max').value
+            };
 
             const filtered = propiedades.filter(p => {
-                return (city === "" || p.ciudad === city) &&
-                       (locality === "" || p.localidad === locality) &&
-                       (type === "" || p.tipo === type) &&
-                       (price === "" || p.precio <= parseInt(price));
+                return (filters.ciudad === "" || p.ciudad === filters.ciudad) &&
+                       (filters.localidad === "" || p.localidad === filters.localidad) &&
+                       (filters.zona === "" || p.zona === filters.zona) &&
+                       (filters.tipo === "" || p.tipo === filters.tipo) &&
+                       (filters.estado === "" || p.estado === filters.estado) &&
+                       (filters.negocio === "" || p.negocio === filters.negocio) &&
+                       (filters.alcobas === "" || p.alcobas.toString() === filters.alcobas) &&
+                       (filters.banos === "" || p.banos.toString() === filters.banos) &&
+                       (filters.min === "" || p.precio >= parseInt(filters.min)) &&
+                       (filters.max === "" || p.precio <= parseInt(filters.max));
             });
 
             renderProperties(filtered);
             window.location.href = "#propiedades";
         }
 
-        // Ejecución inicial
         populateFilters();
         renderProperties(propiedades);
     </script>
