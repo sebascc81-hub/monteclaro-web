@@ -7,28 +7,35 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        /* Tipografía y Colores monteclaro */
         .bg-monteclaro-blue { background-color: #2638bf; }
         .text-monteclaro-blue { color: #2638bf; }
         .bg-monteclaro-silver { background-color: #b2b8bf; }
         .border-monteclaro-silver { border-color: #b2b8bf; }
-        .nav-link { font-weight: 800; text-transform: uppercase; font-size: 0.85rem; color: #000000; transition: color 0.3s; }
+        
+        /* Estilo de texto solicitado: Negritas, Mayúsculas y Espaciado */
+        body { color: #000000; letter-spacing: -0.02em; }
+        .nav-link { font-weight: 900; text-transform: uppercase; font-size: 0.75rem; color: #000000; letter-spacing: 0.1em; transition: 0.3s; }
         .nav-link:hover { color: #2638bf; }
-        .property-card { border: 1px solid #b2b8bf; background: white; cursor: pointer; transition: 0.3s; }
-        .property-card:hover { transform: translateY(-5px); }
-        label { color: white; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
-        select, input { border-radius: 0px !important; font-weight: 600; font-size: 12px; height: 38px; }
+        
+        .property-card { border: 1px solid #b2b8bf; background: white; cursor: pointer; transition: 0.3s ease-in-out; }
+        .property-card:hover { transform: translateY(-8px); border-color: #2638bf; }
+        
+        label { color: white; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; }
+        select, input { border-radius: 0px !important; font-weight: 700; font-size: 11px; height: 40px; border: 1px solid #000000; text-transform: uppercase; }
+        
         .hidden { display: none; }
         html { scroll-behavior: smooth; }
     </style>
 </head>
-<body class="bg-white font-sans text-black">
+<body class="bg-white font-sans">
 
-    <nav class="bg-white shadow-sm sticky top-0 z-50 border-b border-monteclaro-silver">
-        <div class="container mx-auto px-4 py-6 flex flex-col lg:flex-row justify-between items-center gap-6 text-center lg:text-left">
+    <nav class="bg-white sticky top-0 z-50 border-b-2 border-monteclaro-silver shadow-sm">
+        <div class="container mx-auto px-4 py-5 flex flex-col lg:flex-row justify-between items-center gap-6">
             <h1 class="text-2xl font-black tracking-tighter cursor-pointer" onclick="window.location.href='index.html'">
-                <span class="text-monteclaro-blue">MONTECLARO</span> <span class="text-black italic">SAS</span>
+                <span class="text-monteclaro-blue">MONTECLARO</span> <span class="italic">SAS</span>
             </h1>
-            <div class="flex flex-wrap justify-center gap-4 md:gap-8">
+            <div class="flex flex-wrap justify-center gap-6">
                 <a href="index.html" class="nav-link">Inicio</a>
                 <a href="#propiedades" class="nav-link">Ventas</a>
                 <a href="#propiedades" class="nav-link">Alquileres</a>
@@ -41,55 +48,64 @@
     </nav>
 
     <main id="main-view">
-        <header id="inicio" class="bg-monteclaro-blue py-8 px-4 border-b-8 border-black">
+        <header id="inicio" class="bg-monteclaro-blue py-10 px-4 border-b-[12px] border-black">
             <div class="container mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4" id="filters-container"></div>
-                <div class="mt-6 flex justify-end">
-                    <button onclick="applyFilters()" class="bg-black text-white px-14 py-4 font-black uppercase text-xs tracking-widest shadow-xl hover:bg-white hover:text-black transition">Buscar Inmueble</button>
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5" id="filters-container">
+                    </div>
+                <div class="mt-8 flex justify-end">
+                    <button onclick="applyFilters()" class="bg-black text-white px-16 py-4 font-black uppercase text-xs tracking-widest hover:bg-white hover:text-black transition-all shadow-2xl">Buscar Propiedad</button>
                 </div>
             </div>
         </header>
-        <section id="propiedades" class="container mx-auto py-20 px-4">
-            <h2 class="text-3xl font-black uppercase text-center mb-12 italic tracking-tighter">INMUEBLES <span class="text-monteclaro-blue">DESTACADOS</span></h2>
-            <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+
+        <section id="propiedades" class="container mx-auto py-24 px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-black uppercase italic tracking-tighter">PORTAFOLIO <span class="text-monteclaro-blue">EXCLUSIVO</span></h2>
+                <div class="h-1.5 w-24 bg-monteclaro-blue mx-auto mt-4"></div>
+            </div>
+            <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                </div>
         </section>
     </main>
 
-    <main id="detail-view" class="hidden container mx-auto py-12 px-4">
-        <button onclick="window.location.href='index.html'" class="mb-8 text-[10px] font-black uppercase border-b-2 border-black pb-1 hover:text-monteclaro-blue"><i class="fas fa-arrow-left mr-2"></i> Volver al Catálogo</button>
+    <main id="detail-view" class="hidden container mx-auto py-16 px-4">
+        <button onclick="window.location.href='index.html'" class="mb-10 text-[10px] font-black uppercase border-b-4 border-monteclaro-blue pb-1 hover:pr-4 transition-all tracking-widest">
+            <i class="fas fa-long-arrow-alt-left mr-2"></i> Volver al Listado
+        </button>
         <div id="detail-content"></div>
     </main>
 
-    <section class="bg-black text-white py-16 px-4 border-t-8 border-monteclaro-blue text-center">
+    <section class="bg-black text-white py-20 px-4 border-t-[16px] border-monteclaro-blue text-center">
         <div class="container mx-auto">
-            <h3 class="text-xl font-black mb-4 uppercase tracking-widest">Consultoría Monteclaro 2026</h3>
-            <p class="text-monteclaro-silver text-[10px] max-w-2xl mx-auto leading-relaxed uppercase font-bold">
-                Asesoría técnica: SMMLV $1.750.905. Subsidios hasta $52.527.150 para viviendas de hasta $262.635.000.
+            <h3 class="text-2xl font-black mb-6 uppercase tracking-tighter italic">CONSULTORÍA HABITACIONAL MONTECLARO</h3>
+            <p class="text-monteclaro-silver text-[11px] max-w-2xl mx-auto leading-loose uppercase font-bold tracking-widest opacity-80">
+                Proyección 2026: SMMLV $1.750.905. Gestión de subsidios hasta $52.527.150 para viviendas VIS hasta $262.635.000.
             </p>
         </div>
     </section>
 
     <script>
+        // DATOS DE TUS PROPIEDADES (Aquí es donde editas)
         const propiedades = [
             { 
                 id: 1, 
-                titulo: "Apartamento Renta - Dosquebradas", 
-                ciudad: "Dosquebradas", localidad: "La Pradera", zona: "La Pradera", 
-                tipo: "Apartamento", estado: "Usado", negocio: "Alquiler", 
-                alcobas: 2, banos: 1, precio: 1460000, area: 45,
-                descripcion: "Apartamento para la renta recien remodelado, todos los servicios incluidos",
+                titulo: "Casa de Lujo en Cerritos", 
+                ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
+                tipo: "Casa Campestre", estado: "Nuevo", negocio: "Venta", 
+                alcobas: 5, banos: 6, precio: 3800000000, area: 4500,
+                descripcion: "Propiedad de alto nivel con seguridad privada, acabados importados y amplias zonas sociales ideales para el descanso.",
                 fotos: ["img/propiedad1/IMG_9114.JPG", "img/propiedad1/IMG_9116.JPG"],
-                video: "https://www.youtube.com/embed/TU_VIDEO_ID_1"
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             },
             { 
                 id: 2, 
-                titulo: "Apartamento VIS - Sector Cuba", 
+                titulo: "Apartamento Sector Guadalupe", 
                 ciudad: "Pereira", localidad: "Cuba", zona: "Guadalupe", 
-                tipo: "Apartamento", estado: "Nuevo", negocio: "Venta", 
-                alcobas: 3, banos: 2, precio: 195000000, area: 55,
-                descripcion: "Excelente oportunidad para estrenar. Apartamento apto para aplicación de subsidios 2026.",
+                tipo: "Apartamento", estado: "Usado", negocio: "Venta", 
+                alcobas: 3, banos: 2, precio: 210000000, area: 62,
+                descripcion: "Ubicación estratégica cerca a transporte público y zonas comerciales. Ideal para familias jóvenes.",
                 fotos: ["img/propiedad2/foto1.jpg"],
-                video: "https://www.youtube.com/embed/TU_VIDEO_ID_2"
+                video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             }
         ];
 
@@ -112,16 +128,19 @@
             data.forEach(p => {
                 grid.innerHTML += `
                     <div class="property-card flex flex-col h-full" onclick="window.location.search = '?id=${p.id}'">
-                        <div class="h-48 overflow-hidden"><img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=Subiendo+Foto...'"></div>
-                        <div class="p-5 flex-grow">
-                            <p class="text-xl font-black">$${p.precio.toLocaleString()}</p>
-                            <h4 class="text-monteclaro-blue font-bold text-[11px] mt-3 uppercase h-8 overflow-hidden">${p.titulo}</h4>
-                            <p class="text-[9px] text-gray-400 mt-4 font-bold uppercase tracking-widest">${p.ciudad}, ${p.zona}</p>
+                        <div class="h-56 overflow-hidden bg-gray-200">
+                            <img src="${p.fotos[0]}" class="w-full h-full object-cover" 
+                                 onerror="this.src='https://via.placeholder.com/600x400?text=IMAGEN+EN+CARGA...'">
                         </div>
-                        <div class="grid grid-cols-3 text-center p-3 text-[9px] font-black border-t border-monteclaro-silver bg-slate-50 uppercase">
-                            <div class="border-r border-monteclaro-silver">m² <br>${p.area}</div>
-                            <div class="border-r border-monteclaro-silver">Hab <br>${p.alcobas}</div>
-                            <div>Baños <br>${p.banos}</div>
+                        <div class="p-6 flex-grow">
+                            <p class="text-2xl font-black text-black leading-none">$${p.precio.toLocaleString()}</p>
+                            <h4 class="text-monteclaro-blue font-black text-[12px] mt-4 uppercase h-10 overflow-hidden leading-tight">${p.titulo}</h4>
+                            <p class="text-[10px] text-gray-400 mt-5 font-bold uppercase tracking-widest"><i class="fas fa-map-marker-alt mr-1"></i> ${p.ciudad}, ${p.zona}</p>
+                        </div>
+                        <div class="grid grid-cols-3 text-center p-4 text-[10px] font-black border-t border-monteclaro-silver bg-slate-50 uppercase tracking-tighter">
+                            <div class="border-r border-monteclaro-silver">ÁREA <br><span class="text-monteclaro-blue text-xs">${p.area}m²</span></div>
+                            <div class="border-r border-monteclaro-silver">ALCOBAS <br><span class="text-monteclaro-blue text-xs">${p.alcobas}</span></div>
+                            <div>BAÑOS <br><span class="text-monteclaro-blue text-xs">${p.banos}</span></div>
                         </div>
                     </div>`;
             });
@@ -133,29 +152,42 @@
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('detail-view').classList.remove('hidden');
             const dc = document.getElementById('detail-content');
-            const esVIS = p.precio <= 262635750 ? `<div class="bg-green-100 text-green-800 p-4 text-[10px] font-black uppercase mb-6">Propiedad apta para gestión de subsidios 2026</div>` : '';
+            
+            // Lógica Subsidio 2026
+            const esVIS = p.precio <= 262635750 ? `<div class="bg-green-600 text-white p-4 text-[11px] font-black uppercase mb-8 tracking-widest text-center shadow-lg">PROPIEDAD APTA PARA SUBSIDIOS DE VIVIENDA 2026</div>` : '';
 
             dc.innerHTML = `
-                <div class="grid lg:grid-cols-2 gap-12">
+                <div class="grid lg:grid-cols-2 gap-16">
                     <div>
-                        <img src="${p.fotos[0]}" class="w-full h-[500px] object-cover shadow-2xl mb-4" onerror="this.src='https://via.placeholder.com/800x600?text=Cargando+Imagen...'">
-                        <div class="flex gap-2">${p.fotos.map(f => `<img src="${f}" class="h-20 w-20 object-cover border border-gray-200" onerror="this.style.display='none'">`).join('')}</div>
-                    </div>
-                    <div>
-                        <h2 class="text-4xl font-black uppercase tracking-tightest leading-none">${p.titulo}</h2>
-                        <p class="text-4xl font-black my-6">$${p.precio.toLocaleString()}</p>
-                        ${esVIS}
-                        <div class="grid grid-cols-3 gap-4 border-y border-gray-100 py-6 mb-8 text-center text-[10px] font-black uppercase">
-                            <div>ÁREA <br><span class="text-lg text-monteclaro-blue">${p.area}m²</span></div>
-                            <div class="border-x border-gray-100">HAB <br><span class="text-lg text-monteclaro-blue">${p.alcobas}</span></div>
-                            <div>BAÑOS <br><span class="text-lg text-monteclaro-blue">${p.banos}</span></div>
+                        <img src="${p.fotos[0]}" class="w-full h-[550px] object-cover shadow-2xl mb-6 border-b-8 border-monteclaro-blue" onerror="this.src='https://via.placeholder.com/800x600?text=MONTECLARO+FOTO...'">
+                        <div class="flex flex-wrap gap-3">
+                            ${p.fotos.map(f => `<img src="${f}" class="h-24 w-24 object-cover border-2 border-monteclaro-silver cursor-pointer hover:border-black transition" onerror="this.style.display='none'">`).join('')}
                         </div>
-                        <p class="text-gray-600 text-sm leading-relaxed mb-10">${p.descripcion}</p>
-                        <a href="https://wa.me/57TUNUMERO?text=Interés en ID ${p.id}: ${p.titulo}" class="bg-black text-white w-full block text-center py-5 font-black uppercase text-xs tracking-widest shadow-2xl hover:bg-monteclaro-blue transition">Contactar Consultor Monteclaro</a>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-monteclaro-blue font-black text-xs uppercase tracking-[0.3em] mb-4">${p.negocio} | ${p.tipo}</span>
+                        <h2 class="text-5xl font-black uppercase tracking-tightest leading-none mb-6">${p.titulo}</h2>
+                        <p class="text-5xl font-black text-black mb-8 leading-none">$${p.precio.toLocaleString()} <span class="text-xs font-normal text-gray-400">COP</span></p>
+                        ${esVIS}
+                        <div class="grid grid-cols-3 gap-6 border-y-2 border-gray-100 py-8 mb-10 text-center text-[11px] font-black uppercase tracking-widest">
+                            <div>SUPERFICIE <br><span class="text-xl text-monteclaro-blue">${p.area}m²</span></div>
+                            <div class="border-x-2 border-gray-100">DORMITORIOS <br><span class="text-xl text-monteclaro-blue">${p.alcobas}</span></div>
+                            <div>BAÑOS <br><span class="text-xl text-monteclaro-blue">${p.banos}</span></div>
+                        </div>
+                        <h3 class="font-black uppercase text-xs mb-4 tracking-widest">Descripción Técnica</h3>
+                        <p class="text-gray-600 text-sm leading-loose mb-12 text-justify">${p.descripcion}</p>
+                        <a href="https://wa.me/57TUNUMERO?text=Deseo consultar la propiedad ID ${p.id}: ${p.titulo}" class="bg-black text-white w-full text-center py-6 font-black uppercase text-[11px] tracking-[0.2em] shadow-2xl hover:bg-monteclaro-blue transition-all">Contactar Asesor Monteclaro</a>
+                    </div>
+                </div>
+                <div class="mt-24 border-t-2 border-gray-100 pt-16">
+                    <h3 class="font-black uppercase text-center text-sm mb-10 tracking-[0.4em]">Recorrido Multimedia</h3>
+                    <div class="max-w-5xl mx-auto aspect-video bg-gray-100 shadow-2xl border-4 border-black">
+                        <iframe width="100%" height="100%" src="${p.video}" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>`;
         }
 
+        // Lógica de Filtros (Conserva la referencia de 10 campos)
         function populateFilters() {
             const c = document.getElementById('filters-container');
             const fields = ['ciudad', 'localidad', 'zona', 'tipo', 'estado', 'negocio', 'alcobas', 'banos'];
@@ -164,10 +196,10 @@
                 const list = [...new Set(propiedades.map(p => p[f]))].sort();
                 let opts = `<option value="">Todos</option>`;
                 list.forEach(i => opts += `<option value="${i}">${i}</option>`);
-                c.innerHTML += `<div class="space-y-1"><label>${f}:</label><select id="f-${f}" class="w-full p-2 outline-none">${opts}</select></div>`;
+                c.innerHTML += `<div class="space-y-1"><label>${f}:</label><select id="f-${f}" class="w-full p-2 outline-none border-b-2 border-black">${opts}</select></div>`;
             });
-            c.innerHTML += `<div class="space-y-1"><label>Precio Mín:</label><input type="number" id="f-min" class="w-full p-2 outline-none"></div>`;
-            c.innerHTML += `<div class="space-y-1"><label>Precio Máx:</label><input type="number" id="f-max" class="w-full p-2 outline-none"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>Precio Mín:</label><input type="number" id="f-min" class="w-full p-2 outline-none border-b-2 border-black"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>Precio Máx:</label><input type="number" id="f-max" class="w-full p-2 outline-none border-b-2 border-black"></div>`;
         }
 
         function applyFilters() {
