@@ -20,7 +20,7 @@
         .property-card:hover { transform: translateY(-8px); border-color: #2638bf; }
         
         label { color: white; font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.15em; }
-        .form-label { color: #000000; font-size: 11px; margin-bottom: 4px; display: block; }
+        .form-label { color: #000000; font-size: 11px; margin-bottom: 4px; display: block; font-weight: 900; }
         select, input, textarea { border-radius: 0px !important; font-weight: 700; font-size: 11px; border: 1px solid #000000; text-transform: uppercase; padding: 10px; width: 100%; }
         
         .hidden { display: none; }
@@ -30,9 +30,13 @@
         .thumb-img { cursor: pointer; transition: 0.2s; border: 2px solid transparent; }
         .thumb-img:hover { border-color: #2638bf; }
 
-        /* Estilo para las flechas de navegación */
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; padding: 15px; cursor: pointer; transition: 0.3s; font-weight: black; }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; padding: 15px; cursor: pointer; transition: 0.3s; z-index: 10; }
         .nav-arrow:hover { background: #2638bf; }
+
+        /* Estilos para las nuevas listas de detalles */
+        .detail-item { font-size: 11px; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid #f0f0f0; padding: 8px 0; display: flex; justify-content: space-between; }
+        .feature-item { font-size: 11px; text-transform: uppercase; font-weight: 700; color: #444; margin-bottom: 6px; }
+        .feature-item::before { content: "▪"; color: #2638bf; margin-right: 8px; font-weight: 900; }
     </style>
 </head>
 <body class="bg-white font-sans">
@@ -55,7 +59,7 @@
     </nav>
 
     <main id="main-view">
-        <header id="inicio" class="bg-monteclaro-blue py-10 px-4 border-b-[12px] border-black">
+        <header id="inicio" class="bg-monteclaro-blue py-10 px-4 border-b-[12px] border-black text-black">
             <div class="container mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5" id="filters-container"></div>
                 <div class="mt-8 flex justify-end">
@@ -65,8 +69,8 @@
         </header>
 
         <section id="propiedades" class="container mx-auto py-24 px-4 text-center">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-black">PORTAFOLIO <span class="text-monteclaro-blue font-black">EXCLUSIVO</span></h2>
+            <div class="text-center mb-16 text-black">
+                <h2 class="text-4xl font-black uppercase italic tracking-tighter">PORTAFOLIO <span class="text-monteclaro-blue font-black text-black">EXCLUSIVO</span></h2>
                 <div class="h-1.5 w-24 bg-monteclaro-blue mx-auto mt-4"></div>
             </div>
             <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"></div>
@@ -80,7 +84,7 @@
         <div id="detail-content"></div>
     </main>
 
-    <footer class="bg-black text-white py-16 px-4 border-t-[16px] border-monteclaro-blue text-center">
+    <footer class="bg-black text-white py-20 px-4 border-t-[16px] border-monteclaro-blue text-center">
         <div class="container mx-auto">
             <h3 class="text-2xl font-black mb-6 uppercase tracking-tighter italic">CONSULTORÍA HABITACIONAL MONTECLARO</h3>
             <p class="text-monteclaro-silver text-[11px] max-w-2xl mx-auto leading-loose uppercase font-bold tracking-widest opacity-80">
@@ -92,17 +96,13 @@
     <script>
         const propiedades = [
             { 
-                id: 1, titulo: "Casa de Lujo en Cerritos", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
-                tipo: "Casa Campestre", estado: "Nuevo", negocio: "Venta", alcobas: 5, banos: 6, precio: 3800000000, area: 4500,
-                descripcion: "Propiedad de alto nivel con seguridad privada y acabados importados.",
+                id: 1, titulo: "Casa Campestre Cerritos - Malabar", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
+                tipo: "Casa Campestre", estado: "Usado", negocio: "Venta", alcobas: 6, banos: 7, precio: 3800000000, area: 2033,
+                areaConstruida: 675, garaje: 15, estrato: 5, pisos: 4, ano: 2021, admin: 350000,
+                descripcionLarga: "Esta impresionante Casa Campestre está ubicada en la ciudad de Pereira en el departamento de Risaralda, una de las zonas más emblemáticas de Colombia rodeada de hermosos paisajes naturales y un clima perfecto para relajarse y disfrutar en familia. Con una amplia área de terreno de 2033 m², esta propiedad ofrece una privacidad y tranquilidad inigualables.<br><br>La Casa Campestre cuenta con una construcción de 675 m², distribuida en dos niveles y diseñada con un estilo arquitectónico único que combina la modernidad con la comodidad.",
+                internas: ["Admite mascotas", "Baño en habitación principal", "Inmueble de Lujo", "Agua", "Jacuzzi", "Baño auxiliar", "Unifamiliar"],
+                externas: ["Área Social", "Piscina", "Urbanización Cerrada", "Zona residencial", "Cerca zona urbana", "Portería / Recepción", "Vigilancia", "Zonas verdes", "Jardín", "Trans. público cercano", "Zona campestre"],
                 fotos: ["img/propiedad1/IMG_9114.JPG", "img/propiedad1/IMG_9116.JPG"],
-                video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-            },
-            { 
-                id: 2, titulo: "Apartamento Sector Guadalupe", ciudad: "Pereira", localidad: "Cuba", zona: "Guadalupe", 
-                tipo: "Apartamento", estado: "Usado", negocio: "Venta", alcobas: 3, banos: 2, precio: 210000000, area: 62,
-                descripcion: "Ubicación estratégica, ideal para familias jóvenes.",
-                fotos: ["img/propiedad2/foto1.jpg"],
                 video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             }
         ];
@@ -134,12 +134,12 @@
                         <div class="h-56 overflow-hidden bg-gray-200">
                             <img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x400?text=FOTO...'">
                         </div>
-                        <div class="p-6 flex-grow text-left">
-                            <p class="text-2xl font-black text-black leading-none font-black">$${p.precio.toLocaleString()}</p>
+                        <div class="p-6 flex-grow text-left text-black">
+                            <p class="text-2xl font-black leading-none">$${p.precio.toLocaleString()}</p>
                             <h4 class="text-monteclaro-blue font-black text-[12px] mt-4 uppercase h-10 overflow-hidden leading-tight">${p.titulo}</h4>
                         </div>
                         <div class="grid grid-cols-3 text-center p-4 text-[10px] font-black border-t border-monteclaro-silver bg-slate-50 uppercase tracking-tighter text-black">
-                            <div>M² <br><span class="text-monteclaro-blue font-black text-xs">${p.area}</span></div>
+                            <div>ÁREA <br><span class="text-monteclaro-blue font-black text-xs">${p.area}m²</span></div>
                             <div class="border-x border-monteclaro-silver">HAB <br><span class="text-monteclaro-blue font-black text-xs">${p.alcobas}</span></div>
                             <div>BAÑOS <br><span class="text-monteclaro-blue font-black text-xs">${p.banos}</span></div>
                         </div>
@@ -173,19 +173,11 @@
 
         function startSlideshow() {
             if (currentProperty.fotos.length <= 1) return;
-            slideshowInterval = setInterval(() => {
-                nextPhoto();
-            }, 4500);
+            slideshowInterval = setInterval(() => nextPhoto(), 4500);
         }
 
-        function stopSlideshow() {
-            clearInterval(slideshowInterval);
-        }
-
-        function resetSlideshow() {
-            stopSlideshow();
-            startSlideshow();
-        }
+        function stopSlideshow() { clearInterval(slideshowInterval); }
+        function resetSlideshow() { stopSlideshow(); startSlideshow(); }
 
         function renderDetail(id) {
             currentProperty = propiedades.find(x => x.id === id);
@@ -193,47 +185,98 @@
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('detail-view').classList.remove('hidden');
             
-            const esVIS = currentProperty.precio <= 262635750 ? `<div class="bg-green-600 text-white p-4 text-[11px] font-black uppercase mb-8 tracking-widest text-center shadow-lg">PROPIEDAD APTA PARA SUBSIDIOS DE VIVIENDA 2026</div>` : '';
+            const esVIS = currentProperty.precio <= 262635750 ? `<div class="bg-green-600 text-white p-4 text-[11px] font-black uppercase mb-8 tracking-widest text-center shadow-lg">APTA PARA SUBSIDIOS 2026</div>` : '';
 
             document.getElementById('detail-content').innerHTML = `
-                <div class="grid lg:grid-cols-2 gap-16 text-left">
+                <div class="grid lg:grid-cols-2 gap-16 text-left mb-20">
                     <div>
                         <div class="relative group h-[550px] overflow-hidden border-b-8 border-monteclaro-blue shadow-2xl mb-6 bg-gray-100">
                             <img id="main-photo" src="${currentProperty.fotos[0]}" class="w-full h-full object-cover">
-                            
-                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></div>
-                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></div>
+                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left text-black"></i></div>
+                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right text-black"></i></div>
                         </div>
-
                         <div class="flex flex-wrap gap-3 mb-10">
-                            ${currentProperty.fotos.map((f, i) => `<img src="${f}" class="h-24 w-24 object-cover thumb-img border-2 border-monteclaro-silver" onclick="changeMainImage(${i})">`).join('')}
+                            ${currentProperty.fotos.map((f, i) => `<img src="${f}" class="h-24 w-24 object-cover thumb-img border-2 border-monteclaro-silver transition" onclick="changeMainImage(${i})">`).join('')}
                         </div>
-                        <h3 class="font-black uppercase text-xs mb-4 tracking-widest text-black font-black">Descripción Técnica</h3>
-                        <p class="text-gray-600 text-sm leading-loose mb-12 text-justify italic font-black font-medium">${currentProperty.descripcion}</p>
-                        <div class="aspect-video bg-gray-100 shadow-2xl border-4 border-black"><iframe width="100%" height="100%" src="${currentProperty.video}" frameborder="0" allowfullscreen></iframe></div>
                     </div>
 
                     <div class="flex flex-col text-black font-black">
                         <span class="text-monteclaro-blue font-black text-xs uppercase tracking-[0.3em] mb-4">${currentProperty.negocio} | ${currentProperty.tipo}</span>
-                        <h2 class="text-5xl font-black uppercase tracking-tightest leading-none mb-6 text-black">${currentProperty.titulo}</h2>
-                        <p class="text-5xl font-black text-black mb-8 leading-none font-black">$${currentProperty.precio.toLocaleString()}</p>
+                        <h2 class="text-5xl font-black uppercase tracking-tightest leading-none mb-6">${currentProperty.titulo}</h2>
+                        <p class="text-5xl font-black mb-8 leading-none">$${currentProperty.precio.toLocaleString()}</p>
                         ${esVIS}
                         
-                        <div class="bg-white p-8 border border-monteclaro-silver shadow-2xl mt-4 font-black">
-                            <h3 class="text-lg font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block font-black text-black">Contáctanos</h3>
-                            <form class="space-y-5">
-                                <div><label class="form-label font-black">Nombre completo <span class="text-red-600 font-black">*</span></label><input type="text" placeholder="ESCRIBE TU NOMBRE" required></div>
-                                <div><label class="form-label font-black">Correo <span class="text-red-600 font-black">*</span></label><input type="email" placeholder="ESCRIBE TU CORREO" required></div>
-                                <div><label class="form-label font-black">Número <span class="text-red-600 font-black">*</span></label>
-                                    <div class="flex gap-2"><select class="w-24 bg-gray-50 text-[10px] font-black"><option>🇨🇴 +57</option></select><input type="tel" placeholder="NÚMERO" class="flex-1" required></div>
+                        <div class="bg-white p-8 border border-monteclaro-silver shadow-2xl mt-4">
+                            <h3 class="text-lg font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block">¿PREFIERES QUE TE CONTACTEMOS?</h3>
+                            <form class="space-y-4 text-black">
+                                <div><label class="form-label">Tu nombre *</label><input type="text" placeholder="ESCRIBE TU NOMBRE" required></div>
+                                <div><label class="form-label">Correo electrónico *</label><input type="email" placeholder="ESCRIBE TU CORREO" required></div>
+                                <div><label class="form-label">Número de teléfono *</label>
+                                    <div class="flex gap-2">
+                                        <select class="w-24 bg-gray-50 text-[10px] font-black border-black"><option>🇨🇴 +57</option></select>
+                                        <input type="tel" placeholder="ESCRIBE TU TELÉFONO" class="flex-1 border-black" required>
+                                    </div>
                                 </div>
-                                <div><label class="form-label font-black">Mensaje <span class="text-red-600 font-black">*</span></label><textarea rows="3" placeholder="ME INTERESA: ${currentProperty.titulo.toUpperCase()}" required></textarea></div>
-                                <button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-xs tracking-widest hover:bg-monteclaro-blue transition-all font-black">Enviar mensaje</button>
+                                <div><label class="form-label text-black">Mensaje *</label><textarea rows="3" placeholder="ESCRIBE UN MENSAJE" class="border-black" required></textarea></div>
+                                <div class="flex items-start gap-3">
+                                    <input type="checkbox" class="w-4 h-4 mt-1 border-2 border-black" required>
+                                    <span class="text-[9px] font-bold uppercase text-gray-500">Acepto recibir información sobre ofertas inmobiliarias</span>
+                                </div>
+                                <button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-xs tracking-widest hover:bg-monteclaro-blue shadow-xl">Enviar mensaje</button>
                             </form>
-                            <div class="mt-8 pt-8 border-t border-gray-100 flex justify-between items-center text-black font-black">
-                                <a href="https://wa.me/573332581313?text=Interés%20en:%20${currentProperty.titulo}" class="text-monteclaro-blue font-black text-[10px] uppercase hover:underline"><i class="fab fa-whatsapp mr-2"></i>WhatsApp Directo</a>
-                                <p class="text-[9px] font-bold text-gray-400 uppercase">Ref: 2026-MC-${currentProperty.id}</p>
+                            <div class="mt-8 pt-8 border-t border-gray-100 flex justify-between items-center text-black">
+                                <a href="https://wa.me/573332581313?text=Info:${currentProperty.titulo}" class="text-monteclaro-blue font-black text-[10px] uppercase tracking-widest"><i class="fab fa-whatsapp mr-2 text-black"></i>WhatsApp Directo</a>
+                                <p class="text-[9px] font-bold text-gray-400 uppercase">REF: ${currentProperty.id}</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border-t-2 border-monteclaro-silver pt-16">
+                    <h3 class="text-2xl font-black uppercase mb-8 border-b-2 border-monteclaro-blue inline-block">Detalles del inmueble</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-x-12 mb-16">
+                        <div class="detail-item"><span>País:</span> <span>Colombia</span></div>
+                        <div class="detail-item"><span>Departamento:</span> <span>Risaralda</span></div>
+                        <div class="detail-item"><span>Ciudad:</span> <span>${currentProperty.ciudad}</span></div>
+                        <div class="detail-item"><span>Código:</span> <span>${currentProperty.id}</span></div>
+                        <div class="detail-item"><span>Estado:</span> <span>${currentProperty.estado}</span></div>
+                        <div class="detail-item"><span>Área Construida:</span> <span>${currentProperty.areaConstruida} m²</span></div>
+                        <div class="detail-item"><span>Área Terreno:</span> <span>${currentProperty.area} m²</span></div>
+                        <div class="detail-item"><span>Alcobas:</span> <span>${currentProperty.alcobas}</span></div>
+                        <div class="detail-item"><span>Baños:</span> <span>${currentProperty.banos}</span></div>
+                        <div class="detail-item"><span>Garaje:</span> <span>${currentProperty.garaje}</span></div>
+                        <div class="detail-item"><span>Estrato:</span> <span>${currentProperty.estrato}</span></div>
+                        <div class="detail-item"><span>Pisos:</span> <span>${currentProperty.pisos}</span></div>
+                        <div class="detail-item"><span>Año construcción:</span> <span>${currentProperty.ano}</span></div>
+                        <div class="detail-item"><span>Tipo de inmueble:</span> <span>${currentProperty.tipo}</span></div>
+                        <div class="detail-item"><span>Tipo de negocio:</span> <span>${currentProperty.negocio}</span></div>
+                        <div class="detail-item"><span>Valor Administración:</span> <span>$${currentProperty.admin.toLocaleString()}</span></div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
+                        <div>
+                            <h3 class="text-xl font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block">Características internas</h3>
+                            <div class="grid grid-cols-2 gap-x-4">
+                                ${currentProperty.internas.map(i => `<div class="feature-item text-black font-black">${i}</div>`).join('')}
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block">Características externas</h3>
+                            <div class="grid grid-cols-2 gap-x-4">
+                                ${currentProperty.externas.map(e => `<div class="feature-item text-black font-black">${e}</div>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-20">
+                        <h3 class="text-xl font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block">Descripción Adicional</h3>
+                        <p class="text-gray-600 text-sm leading-loose text-justify font-medium text-black font-black">${currentProperty.descripcionLarga}</p>
+                    </div>
+
+                    <div class="mt-16 text-center border-t border-gray-100 pt-16">
+                        <h3 class="font-black uppercase text-sm mb-8 tracking-[0.4em] text-black font-black">Recorrido Multimedia</h3>
+                        <div class="max-w-4xl mx-auto aspect-video border-4 border-black text-black">
+                            <iframe width="100%" height="100%" src="${currentProperty.video}" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>
                 </div>`;
@@ -251,8 +294,8 @@
                 list.forEach(i => opts += `<option value="${i}">${i}</option>`);
                 c.innerHTML += `<div class="space-y-1"><label>${f}:</label><select id="f-${f}" class="w-full p-2 outline-none border-b-2 border-black font-black">${opts}</select></div>`;
             });
-            c.innerHTML += `<div class="space-y-1"><label>Precio Mín:</label><input type="number" id="f-min" placeholder="DESDE" class="w-full p-2 outline-none border-b-2 border-black font-black"></div>`;
-            c.innerHTML += `<div class="space-y-1"><label>Precio Máx:</label><input type="number" id="f-max" placeholder="HASTA" class="w-full p-2 outline-none border-b-2 border-black font-black"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>Precio Mín:</label><input type="number" id="f-min" class="w-full p-2 outline-none border-b-2 border-black font-black" placeholder="DESDE"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>Precio Máx:</label><input type="number" id="f-max" class="w-full p-2 outline-none border-b-2 border-black font-black" placeholder="HASTA"></div>`;
         }
 
         function applyFilters() {
