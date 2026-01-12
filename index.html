@@ -13,19 +13,23 @@
         .border-monteclaro-silver { border-color: #b2b8bf; }
         
         body { color: #000000; letter-spacing: -0.02em; overflow-x: hidden; }
-        .nav-link { font-weight: 900; text-transform: uppercase; font-size: 0.65rem; md:font-size: 0.75rem; color: #000000; letter-spacing: 0.05em; transition: 0.3s; cursor: pointer; }
-        .nav-link:hover { color: #2638bf; }
         
-        /* ESTILOS DROPDOWN (Imagen image_6b61ac.png) */
+        /* --- ESTILOS MENÚ FLOTANTE (Referencia image_6b61ac.png) --- */
         .nav-item { position: relative; display: inline-block; }
+        .nav-link { font-weight: 900; text-transform: uppercase; font-size: 0.75rem; color: #000000; letter-spacing: 0.05em; padding: 15px 10px; cursor: pointer; transition: 0.3s; display: flex; align-items: center; }
+        .nav-link:hover { color: #2638bf; }
+
         .dropdown-content { 
             display: none; position: absolute; background-color: #ffffff; 
-            min-width: 220px; box-shadow: 0px 8px 16px rgba(0,0,0,0.1); z-index: 100;
-            text-align: left; border-top: 4px solid #2638bf;
+            min-width: 240px; box-shadow: 0px 10px 25px rgba(0,0,0,0.1); z-index: 100;
+            text-align: left; border-top: 4px solid #2638bf; top: 100%; left: 0;
         }
-        .dropdown-content a { color: #000000; padding: 12px 16px; text-decoration: none; display: block; font-size: 11px; font-weight: 800; border-bottom: 1px solid #f1f1f1; text-transform: uppercase; }
-        .dropdown-content a:hover { background-color: #f8f8f8; color: #2638bf; }
+        .dropdown-content a { color: #444; padding: 12px 18px; text-decoration: none; display: block; font-size: 11px; font-weight: 800; border-bottom: 1px solid #f8f8f8; text-transform: uppercase; transition: 0.2s; }
+        .dropdown-content a:hover { background-color: #f1f1f1; color: #2638bf; padding-left: 22px; }
+        
+        /* Mostrar dropdown al pasar el mouse */
         .nav-item:hover .dropdown-content { display: block; }
+        /* --------------------------------------------------------- */
 
         .property-card { border: 1px solid #b2b8bf; background: white; cursor: pointer; transition: 0.3s ease-in-out; }
         .property-card:hover { transform: translateY(-5px); border-color: #2638bf; }
@@ -48,20 +52,20 @@
 <body class="bg-white font-sans">
 
     <nav class="bg-white sticky top-0 z-50 border-b-2 border-monteclaro-silver shadow-sm">
-        <div class="container mx-auto px-4 py-2 flex flex-col lg:flex-row justify-between items-center gap-4">
-            <img src="img/logo2.png" class="h-8 md:h-10 cursor-pointer" onclick="window.location.href='index.html'" onerror="this.src='https://via.placeholder.com/150x40?text=MONTECLARO'">
+        <div class="container mx-auto px-4 flex flex-col lg:flex-row justify-between items-center">
+            <img src="img/logo.png" alt="Monteclaro" class="h-10 my-3 cursor-pointer" onclick="renderHome()">
             
-            <div class="flex flex-wrap justify-center gap-2 md:gap-4">
+            <div class="flex flex-wrap justify-center items-center">
                 <a onclick="renderHome()" class="nav-link">Inicio</a>
                 
                 <div class="nav-item">
-                    <a onclick="filterByBusiness('Venta')" class="nav-link text-monteclaro-blue">Ventas <i class="fas fa-chevron-down text-[8px]"></i></a>
+                    <span class="nav-link">Ventas <i class="fas fa-chevron-down ml-1 text-[8px]"></i></span>
                     <div class="dropdown-content" id="drop-ventas">
                         </div>
                 </div>
 
                 <div class="nav-item">
-                    <a onclick="filterByBusiness('Alquiler')" class="nav-link">Alquileres <i class="fas fa-chevron-down text-[8px]"></i></a>
+                    <span class="nav-link">Alquileres <i class="fas fa-chevron-down ml-1 text-[8px]"></i></span>
                     <div class="dropdown-content" id="drop-alquileres">
                         </div>
                 </div>
@@ -78,7 +82,7 @@
         <header id="inicio" class="bg-monteclaro-blue py-8 md:py-16 px-4 border-b-[8px] md:border-b-[12px] border-black text-center">
             <div class="container mx-auto">
                 <div class="mb-8 md:mb-12">
-                    <img src="img/logo.png" alt="Monteclaro Inmobiliaria S.A.S" class="mx-auto max-w-[200px] sm:max-w-[300px] md:max-w-[450px] h-auto drop-shadow-xl">
+                    <img src="img/logo.png" alt="Monteclaro Logo" class="mx-auto max-w-[200px] md:max-w-[450px] h-auto drop-shadow-xl">
                 </div>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5 text-left" id="filters-container"></div>
                 <div class="mt-6 flex justify-center md:justify-end">
@@ -88,38 +92,33 @@
         </header>
 
         <section id="propiedades" class="container mx-auto py-12 md:py-24 px-4 text-center">
-            <div class="mb-10 text-black">
-                <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter">PORTAFOLIO <span class="text-monteclaro-blue font-black uppercase">EXCLUSIVO</span></h2>
-                <div class="h-1 w-16 md:w-24 bg-monteclaro-blue mx-auto mt-2"></div>
-            </div>
-            <div id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10"></div>
+            <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter">PORTAFOLIO <span class="text-monteclaro-blue">EXCLUSIVO</span></h2>
+            <div id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 mt-10"></div>
         </section>
     </main>
 
-    <main id="detail-view" class="hidden container mx-auto py-8 md:py-16 px-4 text-black">
-        <button onclick="renderHome()" class="mb-6 text-[9px] font-black uppercase border-b-2 border-monteclaro-blue pb-1 tracking-widest">
+    <main id="detail-view" class="hidden container mx-auto py-8 md:py-16 px-4 text-black font-black uppercase">
+        <button onclick="renderHome()" class="mb-6 text-[9px] font-black border-b-2 border-monteclaro-blue pb-1 tracking-widest">
             <i class="fas fa-long-arrow-alt-left mr-1"></i> Volver al Catálogo
         </button>
         <div id="detail-content"></div>
     </main>
 
-    <footer class="bg-black text-white py-12 border-t-[10px] md:border-t-[16px] border-monteclaro-blue text-center text-black font-black uppercase tracking-widest">
+    <footer class="bg-black text-white py-12 border-t-[10px] md:border-t-[16px] border-monteclaro-blue text-center">
         <div class="container mx-auto px-4">
-            <img src="img/logo.png" alt="Logo Monteclaro" class="h-10 md:h-12 mx-auto mb-4 opacity-80 grayscale brightness-200">
-            <h3 class="text-lg md:text-xl font-black mb-2 uppercase tracking-tighter italic text-white">MONTECLARO INMOBILIARIA S.A.S</h3>
-            <p class="text-monteclaro-silver text-[9px] uppercase font-bold tracking-widest opacity-80">Asesoría Integral 2026</p>
+            <img src="img/logo.png" alt="Logo" class="h-10 mx-auto mb-4 opacity-80 grayscale brightness-200">
+            <p class="text-monteclaro-silver text-[9px] uppercase font-bold tracking-widest">Monteclaro Inmobiliaria S.A.S © 2026</p>
         </div>
     </footer>
 
     <script>
         const propiedades = [
             { 
-                id: 1, titulo: "Casa Campestre Cerritos - Malabar", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
+                id: 9522647, titulo: "Casa Campestre Cerritos - Malabar", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
                 tipo: "Casa Campestre", estado: "Usado", negocio: "Venta", alcobas: 6, banos: 7, precio: 3800000000, area: 2033,
                 areaConstruida: 675, garaje: 15, estrato: 5, admin: 350000,
-                descripcionLarga: "Ubicada en Pereira, Risaralda. Terreno de 2033 m² con privacidad inigualable. Construcción de 675 m².",
-                internas: ["Admite mascotas", "Baño en principal", "Jacuzzi"],
-                externas: ["Área Social", "Piscina", "Vigilancia"],
+                internas: ["Admite mascotas", "Jacuzzi", "Baño en habitación principal"],
+                externas: ["Piscina", "Urbanización Cerrada", "Vigilancia"],
                 fotos: ["img/propiedad1/IMG_9114.JPG", "img/propiedad1/IMG_9116.JPG"],
                 video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             }
@@ -127,44 +126,44 @@
 
         let slideshowInterval, currentPhotoIndex = 0, currentProperty;
 
-        // FUNCIÓN PARA GENERAR EL DROPDOWN (image_6b61ac.png)
-        function updateDropdowns() {
+        // ACTUALIZA LOS DROPDOWNS CON CONTADORES (image_6b61ac.png)
+        function updateNavDropdowns() {
             const types = [...new Set(propiedades.map(p => p.tipo))].sort();
-            const fillDrop = (id, business) => {
+            const fill = (id, negocio) => {
                 const container = document.getElementById(id);
                 container.innerHTML = '';
                 types.forEach(t => {
-                    const count = propiedades.filter(p => p.tipo === t && p.negocio === business).length;
+                    const count = propiedades.filter(p => p.tipo === t && p.negocio === negocio).length;
                     if(count > 0) {
-                        container.innerHTML += `<a onclick="filterByExactType('${t}', '${business}')">${t} (${count})</a>`;
+                        container.innerHTML += `<a onclick="filterByType('${t}', '${negocio}')">${t} (${count})</a>`;
                     }
                 });
             };
-            fillDrop('drop-ventas', 'Venta');
-            fillDrop('drop-alquileres', 'Alquiler');
+            fill('drop-ventas', 'Venta');
+            fill('drop-alquileres', 'Alquiler');
         }
 
-        function filterByExactType(tipo, negocio) {
+        function filterByType(tipo, negocio) {
             document.getElementById('main-view').classList.remove('hidden');
             document.getElementById('detail-view').classList.add('hidden');
-            const res = propiedades.filter(p => p.tipo === tipo && p.negocio === negocio);
-            renderGrid(res);
+            const filtrados = propiedades.filter(p => p.tipo === tipo && p.negocio === negocio);
+            renderGrid(filtrados);
             document.getElementById('propiedades').scrollIntoView();
         }
 
-        function filterByBusiness(tipo) {
+        function filterByBusiness(negocio) {
             document.getElementById('main-view').classList.remove('hidden');
             document.getElementById('detail-view').classList.add('hidden');
-            const filtrados = propiedades.filter(p => p.negocio.toLowerCase() === tipo.toLowerCase());
+            const filtrados = propiedades.filter(p => p.negocio.toLowerCase() === negocio.toLowerCase());
             renderGrid(filtrados);
             document.getElementById('propiedades').scrollIntoView();
         }
 
         function renderHome() {
-            stopSlideshow();
+            clearInterval(slideshowInterval);
             document.getElementById('main-view').classList.remove('hidden');
             document.getElementById('detail-view').classList.add('hidden');
-            updateDropdowns();
+            updateNavDropdowns();
             populateFilters();
             renderGrid(propiedades);
             window.scrollTo(0,0);
@@ -174,13 +173,21 @@
             const grid = document.getElementById('properties-grid');
             grid.innerHTML = '';
             data.forEach(p => {
-                grid.innerHTML += `<div class="property-card flex flex-col h-full" onclick="window.location.search = '?id=${p.id}'">
-                    <div class="h-48 md:h-56 overflow-hidden bg-gray-200"><img src="${p.fotos[0]}" class="w-full h-full object-cover"></div>
-                    <div class="p-4 md:p-6 flex-grow text-left">
-                        <p class="text-lg md:text-xl font-black leading-none">$${p.precio.toLocaleString()}</p>
-                        <h4 class="text-monteclaro-blue font-black text-[10px] md:text-[12px] mt-2 uppercase h-8 overflow-hidden">${p.titulo}</h4>
-                    </div>
-                </div>`;
+                grid.innerHTML += `
+                    <div class="property-card flex flex-col h-full" onclick="window.location.search = '?id=${p.id}'">
+                        <div class="h-48 md:h-56 overflow-hidden bg-gray-200">
+                            <img src="${p.fotos[0]}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-4 md:p-6 flex-grow text-left text-black font-black uppercase">
+                            <p class="text-lg md:text-xl font-black">$${p.precio.toLocaleString()}</p>
+                            <h4 class="text-monteclaro-blue text-[10px] md:text-[12px] mt-2 h-8 overflow-hidden">${p.titulo}</h4>
+                        </div>
+                        <div class="grid grid-cols-3 text-center p-3 text-[9px] font-black border-t border-monteclaro-silver bg-slate-50">
+                            <div>ÁREA <br><span class="text-monteclaro-blue">${p.area}M²</span></div>
+                            <div class="border-x border-monteclaro-silver text-black">HAB <br><span>${p.alcobas}</span></div>
+                            <div>BAÑOS <br><span>${p.banos}</span></div>
+                        </div>
+                    </div>`;
             });
         }
 
@@ -196,11 +203,8 @@
             }
         }
 
-        function nextPhoto() { changeMainImage((currentPhotoIndex + 1) % currentProperty.fotos.length); resetSlideshow(); }
-        function prevPhoto() { changeMainImage((currentPhotoIndex - 1 + currentProperty.fotos.length) % currentProperty.fotos.length); resetSlideshow(); }
-        function startSlideshow() { if (currentProperty && currentProperty.fotos.length > 1) slideshowInterval = setInterval(nextPhoto, 4500); }
-        function stopSlideshow() { clearInterval(slideshowInterval); }
-        function resetSlideshow() { stopSlideshow(); startSlideshow(); }
+        function nextPhoto() { changeMainImage((currentPhotoIndex + 1) % currentProperty.fotos.length); }
+        function prevPhoto() { changeMainImage((currentPhotoIndex - 1 + currentProperty.fotos.length) % currentProperty.fotos.length); }
 
         function renderDetail(id) {
             currentProperty = propiedades.find(x => x.id === id);
@@ -209,28 +213,53 @@
             document.getElementById('detail-view').classList.remove('hidden');
             
             document.getElementById('detail-content').innerHTML = `
-                <div class="grid lg:grid-cols-2 gap-8 md:gap-16 text-left mb-12">
+                <div class="grid lg:grid-cols-2 gap-8 md:gap-16 text-left mb-12 items-start font-black">
                     <div>
-                        <div class="relative h-[250px] sm:h-[400px] md:h-[550px] overflow-hidden border-b-4 border-monteclaro-blue shadow-lg">
+                        <div class="relative h-[250px] sm:h-[400px] md:h-[550px] overflow-hidden border-b-4 border-monteclaro-blue shadow-lg bg-gray-100">
                             <img id="main-photo" src="${currentProperty.fotos[0]}" class="h-full w-full object-cover">
-                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></div>
-                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></div>
+                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left text-black"></i></div>
+                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right text-black"></i></div>
+                        </div>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            ${currentProperty.fotos.map((f, i) => `<img src="${f}" class="thumb-img border border-monteclaro-silver" onclick="changeMainImage(${i})">`).join('')}
                         </div>
                     </div>
+
                     <div class="flex flex-col">
-                        <h2 class="text-2xl md:text-5xl font-black uppercase mb-4">${currentProperty.titulo}</h2>
-                        <p class="text-2xl md:text-4xl font-black mb-6">$${currentProperty.precio.toLocaleString()}</p>
+                        <span class="text-monteclaro-blue text-[10px] mb-1">${currentProperty.negocio} | ${currentProperty.tipo}</span>
+                        <h2 class="text-2xl md:text-5xl mb-4 leading-tight">${currentProperty.titulo}</h2>
+                        <p class="text-2xl md:text-4xl mb-6 font-black">$${currentProperty.precio.toLocaleString()}</p>
+                        
+                        <div class="bg-white p-6 border border-monteclaro-silver shadow-lg mt-2 font-black">
+                            <h3 class="text-xs border-b-2 border-monteclaro-blue inline-block mb-4">CONTÁCTANOS</h3>
+                            <form class="space-y-3 font-black text-black">
+                                <div><label class="form-label">NOMBRE *</label><input type="text" placeholder="NOMBRE COMPLETO" required></div>
+                                <div><label class="form-label">TELÉFONO *</label>
+                                    <div class="flex gap-2"><select class="w-16"><option>🇨🇴</option></select><input type="tel" class="flex-1" placeholder="NÚMERO" required></div>
+                                </div>
+                                <button type="submit" class="w-full bg-black text-white py-3 font-black text-[10px] tracking-widest hover:bg-monteclaro-blue">ENVIAR</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
+
                 <div class="border-t-2 border-monteclaro-silver pt-10">
-                    <h3 class="text-lg md:text-2xl font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block">Ficha Técnica</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mb-10">
-                        <div class="detail-item"><span>Código:</span> <span>${currentProperty.id}</span></div>
-                        <div class="detail-item"><span>Hab:</span> <span>${currentProperty.alcobas}</span></div>
-                        <div class="detail-item"><span>Admin:</span> <span>$${currentProperty.admin.toLocaleString()}</span></div>
+                    <h3 class="text-lg md:text-2xl mb-6 border-b-2 border-monteclaro-blue inline-block">DETALLES DEL INMUEBLE</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 md:gap-x-12 mb-10">
+                        <div class="detail-item"><span>CÓDIGO:</span> <span>${currentProperty.id}</span></div>
+                        <div class="detail-item"><span>ÁREA CONST:</span> <span>${currentProperty.areaConstruida}M²</span></div>
+                        <div class="detail-item"><span>ESTRATO:</span> <span>${currentProperty.estrato}</span></div>
+                        <div class="detail-item"><span>ADMIN:</span> <span>$${currentProperty.admin.toLocaleString()}</span></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-8 mb-12 font-black">
+                        <div><h3 class="text-sm mb-4 border-b-2 border-monteclaro-blue inline-block">INTERNAS</h3>
+                        ${currentProperty.internas.map(i => `<div class="feature-item">${i}</div>`).join('')}</div>
+                        <div><h3 class="text-sm mb-4 border-b-2 border-monteclaro-blue inline-block">EXTERNAS</h3>
+                        ${currentProperty.externas.map(e => `<div class="feature-item">${e}</div>`).join('')}</div>
                     </div>
                 </div>`;
-            startSlideshow();
+            
+            slideshowInterval = setInterval(nextPhoto, 4500);
         }
 
         function populateFilters() {
@@ -239,12 +268,12 @@
             c.innerHTML = '';
             fields.forEach(f => {
                 const list = [...new Set(propiedades.map(p => p[f]))].sort();
-                let opts = `<option value="">Todos</option>`;
-                list.forEach(i => opts += `<option value="${i}">${i}</option>`);
-                c.innerHTML += `<div class="space-y-1"><label>${f}:</label><select id="f-${f}">${opts}</select></div>`;
+                let opts = `<option value="">TODOS</option>`;
+                list.forEach(i => opts += `<option value="${i}">${i.toUpperCase()}</option>`);
+                c.innerHTML += `<div class="space-y-1"><label>${f.toUpperCase()}:</label><select id="f-${f}">${opts}</select></div>`;
             });
-            c.innerHTML += `<div class="space-y-1"><label>Mínimo:</label><input type="number" id="f-min" placeholder="DESDE"></div>`;
-            c.innerHTML += `<div class="space-y-1"><label>Máximo:</label><input type="number" id="f-max" placeholder="HASTA"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>MIN:</label><input type="number" id="f-min" placeholder="DESDE"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>MAX:</label><input type="number" id="f-max" placeholder="HASTA"></div>`;
         }
 
         function applyFilters() {
