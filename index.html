@@ -13,7 +13,7 @@
         .border-monteclaro-silver { border-color: #b2b8bf; }
         
         body { color: #000000; letter-spacing: -0.02em; overflow-x: hidden; }
-        .nav-link { font-weight: 900; text-transform: uppercase; font-size: 0.65rem; md:font-size: 0.75rem; color: #000000; letter-spacing: 0.05em; transition: 0.3s; }
+        .nav-link { font-weight: 900; text-transform: uppercase; font-size: 0.65rem; md:font-size: 0.75rem; color: #000000; letter-spacing: 0.05em; transition: 0.3s; cursor: pointer; }
         .nav-link:hover { color: #2638bf; }
         
         .property-card { border: 1px solid #b2b8bf; background: white; cursor: pointer; transition: 0.3s ease-in-out; }
@@ -31,7 +31,7 @@
         .thumb-img { cursor: pointer; transition: 0.2s; border: 2px solid transparent; width: 45px; height: 45px; md:width: 80px; md:height: 80px; object-fit: cover; }
         .thumb-img:hover { border-color: #2638bf; }
 
-        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; padding: 10px; cursor: pointer; transition: 0.3s; z-index: 10; font-size: 12px; }
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; padding: 10px; cursor: pointer; z-index: 10; font-size: 12px; }
         .nav-arrow:hover { background: #2638bf; }
 
         .detail-item { font-size: 9px; md:font-size: 11px; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid #f0f0f0; padding: 6px 0; display: flex; justify-content: space-between; gap: 4px; }
@@ -42,13 +42,13 @@
 <body class="bg-white font-sans">
 
     <nav class="bg-white sticky top-0 z-50 border-b-2 border-monteclaro-silver shadow-sm">
-        <div class="container mx-auto px-4 py-2 flex flex-col lg:flex-row justify-between items-center gap-4">
+        <div class="container mx-auto px-4 py-3 flex flex-col lg:flex-row justify-between items-center gap-4">
             <img src="img/logo2.png" class="h-8 md:h-10 cursor-pointer" onclick="window.location.href='index.html'" onerror="this.src='https://via.placeholder.com/150x40?text=MONTECLARO'">
             
             <div class="flex flex-wrap justify-center gap-3 md:gap-6">
-                <a href="index.html" class="nav-link">Inicio</a>
-                <a href="#propiedades" class="nav-link text-monteclaro-blue">Ventas</a>
-                <a href="#propiedades" class="nav-link">Alquileres</a>
+                <a onclick="renderHome()" class="nav-link">Inicio</a>
+                <a onclick="filterByBusiness('Venta')" class="nav-link text-monteclaro-blue">Ventas</a>
+                <a onclick="filterByBusiness('Alquiler')" class="nav-link">Alquileres</a>
                 <a href="https://wa.me/57TUNUMERO" class="nav-link">Permutar</a>
                 <a href="#" class="nav-link">Blog</a>
                 <a href="#" class="nav-link">Nosotros</a>
@@ -60,12 +60,10 @@
     <main id="main-view">
         <header id="inicio" class="bg-monteclaro-blue py-8 md:py-16 px-4 border-b-[8px] md:border-b-[12px] border-black text-center">
             <div class="container mx-auto">
-                
                 <div class="mb-8 md:mb-12">
                     <img src="img/logo.png" alt="Monteclaro Inmobiliaria S.A.S" class="mx-auto max-w-[200px] sm:max-w-[300px] md:max-w-[450px] h-auto drop-shadow-xl" onerror="this.style.display='none'">
                     <h1 class="text-white font-black text-2xl uppercase md:hidden" id="fallback-text"></h1>
                 </div>
-
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5 text-left" id="filters-container"></div>
                 <div class="mt-6 flex justify-center md:justify-end">
                     <button onclick="applyFilters()" class="bg-black text-white px-8 md:px-16 py-3 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all shadow-xl w-full md:w-auto">Buscar Propiedad</button>
@@ -75,7 +73,7 @@
 
         <section id="propiedades" class="container mx-auto py-12 md:py-24 px-4 text-center">
             <div class="mb-10 text-black">
-                <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter text-black">PORTAFOLIO <span class="text-monteclaro-blue font-black text-black uppercase">EXCLUSIVO</span></h2>
+                <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter">PORTAFOLIO <span class="text-monteclaro-blue font-black uppercase">EXCLUSIVO</span></h2>
                 <div class="h-1 w-16 md:w-24 bg-monteclaro-blue mx-auto mt-2"></div>
             </div>
             <div id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10"></div>
@@ -83,16 +81,16 @@
     </main>
 
     <main id="detail-view" class="hidden container mx-auto py-8 md:py-16 px-4 text-black">
-        <button onclick="window.location.href='index.html'" class="mb-6 text-[9px] font-black uppercase border-b-2 border-monteclaro-blue pb-1 tracking-widest">
+        <button onclick="renderHome()" class="mb-6 text-[9px] font-black uppercase border-b-2 border-monteclaro-blue pb-1 tracking-widest">
             <i class="fas fa-long-arrow-alt-left mr-1"></i> Volver al Catálogo
         </button>
         <div id="detail-content"></div>
     </main>
 
     <footer class="bg-black text-white py-12 border-t-[10px] md:border-t-[16px] border-monteclaro-blue text-center">
-        <div class="container mx-auto px-4">
+        <div class="container mx-auto px-4 text-black">
             <img src="img/logo.png" alt="Logo Monteclaro" class="h-10 md:h-12 mx-auto mb-4 opacity-80 grayscale brightness-200" onerror="this.style.display='none'">
-            <h3 class="text-lg md:text-xl font-black mb-2 uppercase tracking-tighter italic">MONTECLARO INMOBILIARIA S.A.S</h3>
+            <h3 class="text-lg md:text-xl font-black mb-2 uppercase tracking-tighter italic text-white">MONTECLARO INMOBILIARIA S.A.S</h3>
             <p class="text-monteclaro-silver text-[9px] uppercase font-bold tracking-widest opacity-80">Asesoría Integral 2026</p>
         </div>
     </footer>
@@ -103,11 +101,19 @@
                 id: 1, titulo: "Casa Campestre Cerritos - Malabar", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
                 tipo: "Casa Campestre", estado: "Usado", negocio: "Venta", alcobas: 6, banos: 7, precio: 3800000000, area: 2033,
                 areaConstruida: 675, garaje: 15, estrato: 5, pisos: 4, ano: 2021, admin: 350000,
-                descripcionLarga: "Ubicada en Pereira, Risaralda. Terreno de 2033 m² con privacidad inigualable. Construcción de 675 m² en dos niveles con diseño moderno.",
-                internas: ["Admite mascotas", "Baño en principal", "Lujo", "Agua", "Jacuzzi"],
-                externas: ["Área Social", "Piscina", "Portería", "Vigilancia", "Jardín"],
+                descripcionLarga: "Ubicada en Pereira, Risaralda. Terreno de 2033 m² con privacidad inigualable. Diseño moderno.",
+                internas: ["Admite mascotas", "Jacuzzi"],
+                externas: ["Piscina", "Vigilancia"],
                 fotos: ["img/propiedad1/IMG_9114.JPG", "img/propiedad1/IMG_9116.JPG"],
                 video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
+            },
+            { 
+                id: 2, titulo: "Apartamento Centro - Alquiler", ciudad: "Pereira", localidad: "Centro", zona: "Bolívar", 
+                tipo: "Apartamento", estado: "Nuevo", negocio: "Alquiler", alcobas: 3, banos: 2, precio: 2500000, area: 85,
+                areaConstruida: 85, garaje: 1, estrato: 4, pisos: 1, ano: 2023, admin: 200000,
+                descripcionLarga: "Excelente apartamento en alquiler.",
+                internas: ["Balcón"], externas: ["Ascensor"],
+                fotos: ["img/propiedad1/IMG_9114.JPG"], video: ""
             }
         ];
 
@@ -125,6 +131,22 @@
             document.getElementById('detail-view').classList.add('hidden');
             populateFilters();
             renderGrid(propiedades);
+            window.scrollTo(0,0);
+        }
+
+        // NUEVA FUNCIÓN PARA FILTRAR POR MENÚ SUPERIOR
+        function filterByBusiness(tipo) {
+            // Aseguramos volver a la vista principal
+            document.getElementById('main-view').classList.remove('hidden');
+            document.getElementById('detail-view').classList.add('hidden');
+            stopSlideshow();
+
+            // Filtramos los datos
+            const filtrados = propiedades.filter(p => p.negocio.toLowerCase() === tipo.toLowerCase());
+            renderGrid(filtrados);
+
+            // Scroll automático a la sección de resultados
+            document.getElementById('propiedades').scrollIntoView();
         }
 
         function renderGrid(data) {
@@ -134,16 +156,11 @@
                 grid.innerHTML += `
                     <div class="property-card flex flex-col h-full" onclick="window.location.search = '?id=${p.id}'">
                         <div class="h-48 md:h-56 overflow-hidden bg-gray-200">
-                            <img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=Cargando...'">
+                            <img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=FOTO...'">
                         </div>
                         <div class="p-4 md:p-6 flex-grow text-left">
                             <p class="text-lg md:text-xl font-black leading-none">$${p.precio.toLocaleString()}</p>
                             <h4 class="text-monteclaro-blue font-black text-[10px] md:text-[12px] mt-2 uppercase h-8 overflow-hidden">${p.titulo}</h4>
-                        </div>
-                        <div class="grid grid-cols-3 text-center p-3 text-[9px] font-black border-t border-monteclaro-silver bg-slate-50 uppercase tracking-tighter">
-                            <div>ÁREA <br><span class="text-monteclaro-blue font-black">${p.area}m²</span></div>
-                            <div class="border-x border-monteclaro-silver font-black text-black">HAB <br><span>${p.alcobas}</span></div>
-                            <div class="font-black text-black">BAÑOS <br><span>${p.banos}</span></div>
                         </div>
                     </div>`;
             });
@@ -173,59 +190,30 @@
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('detail-view').classList.remove('hidden');
             
-            const esVIS = currentProperty.precio <= 262635750 ? `<div class="bg-green-600 text-white p-3 text-[9px] font-black uppercase mb-4 text-center">APTA SUBSIDIOS 2026</div>` : '';
-
             document.getElementById('detail-content').innerHTML = `
                 <div class="grid lg:grid-cols-2 gap-8 md:gap-16 text-left mb-12">
                     <div>
                         <div class="relative h-[250px] sm:h-[400px] md:h-[550px] overflow-hidden border-b-4 border-monteclaro-blue shadow-lg bg-gray-100">
                             <img id="main-photo" src="${currentProperty.fotos[0]}" class="h-full w-full object-cover">
-                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left text-black"></i></div>
-                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right text-black"></i></div>
+                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></div>
+                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></div>
                         </div>
                         <div class="flex flex-wrap gap-2 mt-4">
                             ${currentProperty.fotos.map((f, i) => `<img src="${f}" class="thumb-img border border-monteclaro-silver" onclick="changeMainImage(${i})">`).join('')}
                         </div>
                     </div>
-
                     <div class="flex flex-col">
-                        <span class="text-monteclaro-blue font-black text-[10px] uppercase tracking-widest mb-1">${currentProperty.negocio}</span>
+                        <span class="text-monteclaro-blue font-black text-[10px] uppercase mb-1">${currentProperty.negocio}</span>
                         <h2 class="text-2xl md:text-5xl font-black uppercase mb-4 leading-tight">${currentProperty.titulo}</h2>
                         <p class="text-2xl md:text-4xl font-black mb-6">$${currentProperty.precio.toLocaleString()}</p>
-                        ${esVIS}
-                        
-                        <div class="bg-white p-6 border border-monteclaro-silver shadow-lg mt-2 font-black">
-                            <h3 class="text-xs font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block italic text-black uppercase">Contacto</h3>
-                            <form class="space-y-3">
-                                <div><label class="form-label">Nombre *</label><input type="text" required></div>
-                                <div><label class="form-label">Teléfono *</label><input type="tel" class="flex-1" required></div>
-                                <button type="submit" class="w-full bg-black text-white py-3 font-black uppercase text-[10px] tracking-widest hover:bg-monteclaro-blue shadow-lg transition-all uppercase">Enviar</button>
+                        <div class="bg-white p-6 border shadow-lg mt-2">
+                            <h3 class="text-xs font-black border-b-2 border-monteclaro-blue inline-block">Contacto</h3>
+                            <form class="space-y-3 mt-4">
+                                <input type="text" placeholder="NOMBRE" required>
+                                <input type="tel" placeholder="TELÉFONO" required>
+                                <button class="w-full bg-black text-white py-3 font-black text-[10px]">ENVIAR</button>
                             </form>
                         </div>
-                    </div>
-                </div>
-
-                <div class="border-t-2 border-monteclaro-silver pt-10">
-                    <h3 class="text-lg md:text-2xl font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block">Ficha Técnica</h3>
-                    <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 md:gap-x-12 mb-10">
-                        <div class="detail-item text-black uppercase"><span>Código:</span> <span>${currentProperty.id}</span></div>
-                        <div class="detail-item text-black uppercase"><span>Área:</span> <span>${currentProperty.areaConstruida}m²</span></div>
-                        <div class="detail-item text-black uppercase"><span>Hab:</span> <span>${currentProperty.alcobas}</span></div>
-                        <div class="detail-item text-black uppercase"><span>Baños:</span> <span>${currentProperty.banos}</span></div>
-                        <div class="detail-item text-black uppercase"><span>Estrato:</span> <span>${currentProperty.estrato}</span></div>
-                        <div class="detail-item text-black uppercase"><span>Admin:</span> <span>$${currentProperty.admin.toLocaleString()}</span></div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-8 mb-12">
-                        <div><h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block">Internas</h3>
-                        ${currentProperty.internas.map(i => `<div class="feature-item font-black">${i}</div>`).join('')}</div>
-                        <div><h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block">Externas</h3>
-                        ${currentProperty.externas.map(e => `<div class="feature-item font-black">${e}</div>`).join('')}</div>
-                    </div>
-
-                    <div class="mb-12">
-                        <h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block text-black uppercase">Descripción</h3>
-                        <p class="text-gray-600 text-[10px] md:text-sm leading-relaxed text-justify font-bold uppercase">${currentProperty.descripcionLarga}</p>
                     </div>
                 </div>`;
             
@@ -254,7 +242,7 @@
                        (g('f-max') === "" || p.precio <= Number(g('f-max')));
             });
             renderGrid(res);
-            window.location.href = "#propiedades";
+            document.getElementById('propiedades').scrollIntoView();
         }
 
         checkRoute();
