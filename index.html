@@ -42,10 +42,9 @@
 <body class="bg-white font-sans">
 
     <nav class="bg-white sticky top-0 z-50 border-b-2 border-monteclaro-silver shadow-sm">
-        <div class="container mx-auto px-4 py-3 flex flex-col lg:flex-row justify-between items-center gap-4">
-            <h1 class="text-sm md:text-base font-black tracking-tighter cursor-pointer text-center lg:text-left" onclick="window.location.href='index.html'">
-                <span class="text-monteclaro-blue">MONTECLARO</span> <span class="italic text-black">S.A.S</span> 
-            </h1>
+        <div class="container mx-auto px-4 py-2 flex flex-col lg:flex-row justify-between items-center gap-4">
+            <img src="img/logo.png" alt="Monteclaro S.A.S" class="h-8 md:h-10 cursor-pointer" onclick="window.location.href='index.html'" onerror="this.src='https://via.placeholder.com/150x40?text=MONTECLARO'">
+            
             <div class="flex flex-wrap justify-center gap-3 md:gap-6">
                 <a href="index.html" class="nav-link">Inicio</a>
                 <a href="#propiedades" class="nav-link text-monteclaro-blue">Ventas</a>
@@ -59,22 +58,24 @@
     </nav>
 
     <main id="main-view">
-        <header id="inicio" class="bg-monteclaro-blue py-12 md:py-20 px-4 border-b-[8px] md:border-b-[12px] border-black text-center">
+        <header id="inicio" class="bg-monteclaro-blue py-8 md:py-16 px-4 border-b-[8px] md:border-b-[12px] border-black text-center">
             <div class="container mx-auto">
-                <h1 class="text-3xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-10 text-white tracking-tightest">
-                    MONTECLARO <span class="italic text-black">INMOBILIARIA S.A.S</span>
-                </h1>
+                
+                <div class="mb-8 md:mb-12">
+                    <img src="img/logo.png" alt="Monteclaro Inmobiliaria S.A.S" class="mx-auto max-w-[200px] sm:max-w-[300px] md:max-w-[450px] h-auto drop-shadow-xl" onerror="this.style.display='none'">
+                    <h1 class="text-white font-black text-2xl uppercase md:hidden" id="fallback-text">MONTECLARO S.A.S</h1>
+                </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-5 text-left" id="filters-container"></div>
-                <div class="mt-8 flex justify-center md:justify-end">
-                    <button onclick="applyFilters()" class="bg-black text-white px-10 md:px-16 py-4 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all shadow-xl w-full md:w-auto">Buscar Propiedad</button>
+                <div class="mt-6 flex justify-center md:justify-end">
+                    <button onclick="applyFilters()" class="bg-black text-white px-8 md:px-16 py-3 font-black uppercase text-[10px] tracking-widest hover:bg-white hover:text-black transition-all shadow-xl w-full md:w-auto">Buscar Propiedad</button>
                 </div>
             </div>
         </header>
 
         <section id="propiedades" class="container mx-auto py-12 md:py-24 px-4 text-center">
             <div class="mb-10 text-black">
-                <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter">PORTAFOLIO <span class="text-monteclaro-blue">EXCLUSIVO</span></h2>
+                <h2 class="text-2xl md:text-4xl font-black uppercase italic tracking-tighter text-black">PORTAFOLIO <span class="text-monteclaro-blue font-black text-black uppercase">EXCLUSIVO</span></h2>
                 <div class="h-1 w-16 md:w-24 bg-monteclaro-blue mx-auto mt-2"></div>
             </div>
             <div id="properties-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10"></div>
@@ -90,7 +91,8 @@
 
     <footer class="bg-black text-white py-12 border-t-[10px] md:border-t-[16px] border-monteclaro-blue text-center">
         <div class="container mx-auto px-4">
-            <h3 class="text-lg md:text-2xl font-black mb-2 uppercase tracking-tighter italic">MONTECLARO INMOBILIARIA S.A.S</h3>
+            <img src="img/logo.png" alt="Logo Monteclaro" class="h-10 md:h-12 mx-auto mb-4 opacity-80 grayscale brightness-200" onerror="this.style.display='none'">
+            <h3 class="text-lg md:text-xl font-black mb-2 uppercase tracking-tighter italic">MONTECLARO INMOBILIARIA S.A.S</h3>
             <p class="text-monteclaro-silver text-[9px] uppercase font-bold tracking-widest opacity-80">Asesoría Integral 2026</p>
         </div>
     </footer>
@@ -101,9 +103,9 @@
                 id: 1, titulo: "Casa Campestre Cerritos - Malabar", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
                 tipo: "Casa Campestre", estado: "Usado", negocio: "Venta", alcobas: 6, banos: 7, precio: 3800000000, area: 2033,
                 areaConstruida: 675, garaje: 15, estrato: 5, pisos: 4, ano: 2021, admin: 350000,
-                descripcionLarga: "Ubicada en Pereira, Risaralda. Terreno de 2033 m² con privacidad inigualable. Construcción de 675 m² en dos niveles con diseño moderno y cómodo.",
-                internas: ["Admite mascotas", "Habitación principal con baño", "Lujo", "Agua", "Jacuzzi", "Baño auxiliar"],
-                externas: ["Área Social", "Piscina", "Cerrada", "Portería", "Vigilancia", "Zonas verdes", "Jardín"],
+                descripcionLarga: "Ubicada en Pereira, Risaralda. Terreno de 2033 m² con privacidad inigualable. Construcción de 675 m² en dos niveles con diseño moderno.",
+                internas: ["Admite mascotas", "Baño en principal", "Lujo", "Agua", "Jacuzzi"],
+                externas: ["Área Social", "Piscina", "Portería", "Vigilancia", "Jardín"],
                 fotos: ["img/propiedad1/IMG_9114.JPG", "img/propiedad1/IMG_9116.JPG"],
                 video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             }
@@ -132,9 +134,9 @@
                 grid.innerHTML += `
                     <div class="property-card flex flex-col h-full" onclick="window.location.search = '?id=${p.id}'">
                         <div class="h-48 md:h-56 overflow-hidden bg-gray-200">
-                            <img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=FOTO...'">
+                            <img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/400x300?text=Cargando...'">
                         </div>
-                        <div class="p-4 md:p-6 flex-grow text-left text-black">
+                        <div class="p-4 md:p-6 flex-grow text-left">
                             <p class="text-lg md:text-xl font-black leading-none">$${p.precio.toLocaleString()}</p>
                             <h4 class="text-monteclaro-blue font-black text-[10px] md:text-[12px] mt-2 uppercase h-8 overflow-hidden">${p.titulo}</h4>
                         </div>
@@ -178,8 +180,8 @@
                     <div>
                         <div class="relative h-[250px] sm:h-[400px] md:h-[550px] overflow-hidden border-b-4 border-monteclaro-blue shadow-lg bg-gray-100">
                             <img id="main-photo" src="${currentProperty.fotos[0]}" class="h-full w-full object-cover">
-                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></div>
-                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></div>
+                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left text-black"></i></div>
+                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right text-black"></i></div>
                         </div>
                         <div class="flex flex-wrap gap-2 mt-4">
                             ${currentProperty.fotos.map((f, i) => `<img src="${f}" class="thumb-img border border-monteclaro-silver" onclick="changeMainImage(${i})">`).join('')}
@@ -187,56 +189,43 @@
                     </div>
 
                     <div class="flex flex-col">
-                        <span class="text-monteclaro-blue font-black text-[10px] uppercase tracking-widest mb-1">${currentProperty.negocio} | ${currentProperty.tipo}</span>
+                        <span class="text-monteclaro-blue font-black text-[10px] uppercase tracking-widest mb-1">${currentProperty.negocio}</span>
                         <h2 class="text-2xl md:text-5xl font-black uppercase mb-4 leading-tight">${currentProperty.titulo}</h2>
                         <p class="text-2xl md:text-4xl font-black mb-6">$${currentProperty.precio.toLocaleString()}</p>
                         ${esVIS}
                         
-                        <div class="bg-white p-6 border border-monteclaro-silver shadow-lg mt-2">
-                            <h3 class="text-xs font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block italic text-black">¿Le contactamos?</h3>
+                        <div class="bg-white p-6 border border-monteclaro-silver shadow-lg mt-2 font-black">
+                            <h3 class="text-xs font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block italic text-black uppercase">Contacto</h3>
                             <form class="space-y-3">
                                 <div><label class="form-label">Nombre *</label><input type="text" required></div>
-                                <div><label class="form-label">Teléfono *</label>
-                                    <div class="flex gap-2"><select class="w-16"><option>🇨🇴</option></select><input type="tel" class="flex-1" required></div>
-                                </div>
-                                <button type="submit" class="w-full bg-black text-white py-3 font-black uppercase text-[10px] tracking-widest hover:bg-monteclaro-blue shadow-lg transition-all">Enviar</button>
+                                <div><label class="form-label">Teléfono *</label><input type="tel" class="flex-1" required></div>
+                                <button type="submit" class="w-full bg-black text-white py-3 font-black uppercase text-[10px] tracking-widest hover:bg-monteclaro-blue shadow-lg transition-all uppercase">Enviar</button>
                             </form>
                         </div>
                     </div>
                 </div>
 
                 <div class="border-t-2 border-monteclaro-silver pt-10">
-                    <h3 class="text-lg md:text-2xl font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block text-black">Ficha Técnica</h3>
+                    <h3 class="text-lg md:text-2xl font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block">Ficha Técnica</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-x-6 md:gap-x-12 mb-10">
-                        <div class="detail-item text-black"><span>Código:</span> <span>${currentProperty.id}</span></div>
-                        <div class="detail-item text-black"><span>Área Const:</span> <span>${currentProperty.areaConstruida}m²</span></div>
-                        <div class="detail-item text-black"><span>Habitaciones:</span> <span>${currentProperty.alcobas}</span></div>
-                        <div class="detail-item text-black"><span>Baños:</span> <span>${currentProperty.banos}</span></div>
-                        <div class="detail-item text-black"><span>Estrato:</span> <span>${currentProperty.estrato}</span></div>
-                        <div class="detail-item text-black"><span>Administración:</span> <span>$${currentProperty.admin.toLocaleString()}</span></div>
+                        <div class="detail-item text-black uppercase"><span>Código:</span> <span>${currentProperty.id}</span></div>
+                        <div class="detail-item text-black uppercase"><span>Área:</span> <span>${currentProperty.areaConstruida}m²</span></div>
+                        <div class="detail-item text-black uppercase"><span>Hab:</span> <span>${currentProperty.alcobas}</span></div>
+                        <div class="detail-item text-black uppercase"><span>Baños:</span> <span>${currentProperty.banos}</span></div>
+                        <div class="detail-item text-black uppercase"><span>Estrato:</span> <span>${currentProperty.estrato}</span></div>
+                        <div class="detail-item text-black uppercase"><span>Admin:</span> <span>$${currentProperty.admin.toLocaleString()}</span></div>
                     </div>
 
                     <div class="grid grid-cols-2 gap-8 mb-12">
-                        <div>
-                            <h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block text-black">Internas</h3>
-                            ${currentProperty.internas.map(i => `<div class="feature-item font-black">${i}</div>`).join('')}
-                        </div>
-                        <div>
-                            <h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block text-black">Externas</h3>
-                            ${currentProperty.externas.map(e => `<div class="feature-item font-black">${e}</div>`).join('')}
-                        </div>
+                        <div><h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block">Internas</h3>
+                        ${currentProperty.internas.map(i => `<div class="feature-item font-black">${i}</div>`).join('')}</div>
+                        <div><h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block">Externas</h3>
+                        ${currentProperty.externas.map(e => `<div class="feature-item font-black">${e}</div>`).join('')}</div>
                     </div>
 
                     <div class="mb-12">
-                        <h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block text-black">Descripción</h3>
+                        <h3 class="text-sm font-black uppercase mb-4 border-b-2 border-monteclaro-blue inline-block text-black uppercase">Descripción</h3>
                         <p class="text-gray-600 text-[10px] md:text-sm leading-relaxed text-justify font-bold uppercase">${currentProperty.descripcionLarga}</p>
-                    </div>
-
-                    <div class="text-center border-t pt-10">
-                        <h3 class="font-black uppercase text-[10px] mb-6 tracking-[0.3em] text-black">Recorrido Multimedia</h3>
-                        <div class="max-w-4xl mx-auto aspect-video border-2 border-black">
-                            <iframe width="100%" height="100%" src="${currentProperty.video}" frameborder="0" allowfullscreen></iframe>
-                        </div>
                     </div>
                 </div>`;
             
