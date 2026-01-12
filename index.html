@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Tipografía y Colores monteclaro */
         .bg-monteclaro-blue { background-color: #2638bf; }
         .text-monteclaro-blue { color: #2638bf; }
         .bg-monteclaro-silver { background-color: #b2b8bf; }
@@ -27,12 +26,13 @@
         .hidden { display: none; }
         html { scroll-behavior: smooth; }
 
-        /* Estilo para miniaturas */
+        #main-photo { transition: opacity 0.4s ease-in-out; }
         .thumb-img { cursor: pointer; transition: 0.2s; border: 2px solid transparent; }
-        .thumb-img:hover { border-color: #2638bf; opacity: 0.8; }
+        .thumb-img:hover { border-color: #2638bf; }
 
-        /* Transición suave para el cambio automático */
-        #main-photo { transition: opacity 0.5s ease-in-out; opacity: 1; }
+        /* Estilo para las flechas de navegación */
+        .nav-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; padding: 15px; cursor: pointer; transition: 0.3s; font-weight: black; }
+        .nav-arrow:hover { background: #2638bf; }
     </style>
 </head>
 <body class="bg-white font-sans">
@@ -66,48 +66,42 @@
 
         <section id="propiedades" class="container mx-auto py-24 px-4 text-center">
             <div class="text-center mb-16">
-                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-black">PORTAFOLIO <span class="text-monteclaro-blue">EXCLUSIVO</span></h2>
+                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-black">PORTAFOLIO <span class="text-monteclaro-blue font-black">EXCLUSIVO</span></h2>
                 <div class="h-1.5 w-24 bg-monteclaro-blue mx-auto mt-4"></div>
             </div>
             <div id="properties-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"></div>
         </section>
     </main>
 
-    <main id="detail-view" class="hidden container mx-auto py-16 px-4">
-        <button onclick="window.location.href='index.html'" class="mb-10 text-[10px] font-black uppercase border-b-4 border-monteclaro-blue pb-1 hover:pr-4 transition-all tracking-widest text-black">
-            <i class="fas fa-long-arrow-alt-left mr-2 text-black"></i> Volver al Catálogo
+    <main id="detail-view" class="hidden container mx-auto py-16 px-4 text-black">
+        <button onclick="window.location.href='index.html'" class="mb-10 text-[10px] font-black uppercase border-b-4 border-monteclaro-blue pb-1 tracking-widest text-black">
+            <i class="fas fa-long-arrow-alt-left mr-2"></i> Volver al Catálogo
         </button>
         <div id="detail-content"></div>
     </main>
 
-    <section class="bg-black text-white py-20 px-4 border-t-[16px] border-monteclaro-blue text-center">
+    <footer class="bg-black text-white py-16 px-4 border-t-[16px] border-monteclaro-blue text-center">
         <div class="container mx-auto">
             <h3 class="text-2xl font-black mb-6 uppercase tracking-tighter italic">CONSULTORÍA HABITACIONAL MONTECLARO</h3>
             <p class="text-monteclaro-silver text-[11px] max-w-2xl mx-auto leading-loose uppercase font-bold tracking-widest opacity-80">
                 Proyección 2026: SMMLV $1.750.905. Gestión de subsidios hasta $52.527.150 para viviendas VIS hasta $262.635.000.
             </p>
         </div>
-    </section>
+    </footer>
 
     <script>
         const propiedades = [
             { 
-                id: 1, 
-                titulo: "Casa de Lujo en Cerritos", 
-                ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
-                tipo: "Casa Campestre", estado: "Nuevo", negocio: "Venta", 
-                alcobas: 5, banos: 6, precio: 3800000000, area: 4500,
-                descripcion: "Propiedad de alto nivel con seguridad privada, acabados importados y amplias zonas sociales ideales para el descanso.",
+                id: 1, titulo: "Casa de Lujo en Cerritos", ciudad: "Pereira", localidad: "Cerritos", zona: "Malabar", 
+                tipo: "Casa Campestre", estado: "Nuevo", negocio: "Venta", alcobas: 5, banos: 6, precio: 3800000000, area: 4500,
+                descripcion: "Propiedad de alto nivel con seguridad privada y acabados importados.",
                 fotos: ["img/propiedad1/IMG_9114.JPG", "img/propiedad1/IMG_9116.JPG"],
                 video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             },
             { 
-                id: 2, 
-                titulo: "Apartamento Sector Guadalupe", 
-                ciudad: "Pereira", localidad: "Cuba", zona: "Guadalupe", 
-                tipo: "Apartamento", estado: "Usado", negocio: "Venta", 
-                alcobas: 3, banos: 2, precio: 210000000, area: 62,
-                descripcion: "Ubicación estratégica cerca a transporte público y zonas comerciales. Ideal para familias jóvenes.",
+                id: 2, titulo: "Apartamento Sector Guadalupe", ciudad: "Pereira", localidad: "Cuba", zona: "Guadalupe", 
+                tipo: "Apartamento", estado: "Usado", negocio: "Venta", alcobas: 3, banos: 2, precio: 210000000, area: 62,
+                descripcion: "Ubicación estratégica, ideal para familias jóvenes.",
                 fotos: ["img/propiedad2/foto1.jpg"],
                 video: "https://www.youtube.com/embed/dQw4w9WgXcQ"
             }
@@ -115,6 +109,7 @@
 
         let slideshowInterval;
         let currentPhotoIndex = 0;
+        let currentProperty;
 
         function checkRoute() {
             const urlParams = new URLSearchParams(window.location.search);
@@ -137,96 +132,113 @@
                 grid.innerHTML += `
                     <div class="property-card flex flex-col h-full" onclick="window.location.search = '?id=${p.id}'">
                         <div class="h-56 overflow-hidden bg-gray-200">
-                            <img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x400?text=IMAGEN+EN+CARGA...'">
+                            <img src="${p.fotos[0]}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/600x400?text=FOTO...'">
                         </div>
                         <div class="p-6 flex-grow text-left">
-                            <p class="text-2xl font-black text-black leading-none">$${p.precio.toLocaleString()}</p>
+                            <p class="text-2xl font-black text-black leading-none font-black">$${p.precio.toLocaleString()}</p>
                             <h4 class="text-monteclaro-blue font-black text-[12px] mt-4 uppercase h-10 overflow-hidden leading-tight">${p.titulo}</h4>
                         </div>
                         <div class="grid grid-cols-3 text-center p-4 text-[10px] font-black border-t border-monteclaro-silver bg-slate-50 uppercase tracking-tighter text-black">
-                            <div>ÁREA <br><span class="text-monteclaro-blue text-xs font-black">${p.area}m²</span></div>
-                            <div class="border-x border-monteclaro-silver">HAB <br><span class="text-monteclaro-blue text-xs font-black">${p.alcobas}</span></div>
-                            <div>BAÑOS <br><span class="text-monteclaro-blue text-xs font-black">${p.banos}</span></div>
+                            <div>M² <br><span class="text-monteclaro-blue font-black text-xs">${p.area}</span></div>
+                            <div class="border-x border-monteclaro-silver">HAB <br><span class="text-monteclaro-blue font-black text-xs">${p.alcobas}</span></div>
+                            <div>BAÑOS <br><span class="text-monteclaro-blue font-black text-xs">${p.banos}</span></div>
                         </div>
                     </div>`;
             });
         }
 
-        function changeMainImage(src, index = null) {
+        function changeMainImage(index) {
+            currentPhotoIndex = index;
             const mainPhoto = document.getElementById('main-photo');
             if (mainPhoto) {
                 mainPhoto.style.opacity = 0;
                 setTimeout(() => {
-                    mainPhoto.src = src;
+                    mainPhoto.src = currentProperty.fotos[currentPhotoIndex];
                     mainPhoto.style.opacity = 1;
-                    if (index !== null) currentPhotoIndex = index;
-                }, 500);
+                }, 400);
             }
         }
 
-        function startSlideshow(property) {
-            if (property.fotos.length <= 1) return;
-            currentPhotoIndex = 0;
+        function nextPhoto() {
+            let nextIndex = (currentPhotoIndex + 1) % currentProperty.fotos.length;
+            changeMainImage(nextIndex);
+            resetSlideshow();
+        }
+
+        function prevPhoto() {
+            let prevIndex = (currentPhotoIndex - 1 + currentProperty.fotos.length) % currentProperty.fotos.length;
+            changeMainImage(prevIndex);
+            resetSlideshow();
+        }
+
+        function startSlideshow() {
+            if (currentProperty.fotos.length <= 1) return;
             slideshowInterval = setInterval(() => {
-                currentPhotoIndex = (currentPhotoIndex + 1) % property.fotos.length;
-                changeMainImage(property.fotos[currentPhotoIndex]);
-            }, 4000); // Cambia cada 4 segundos
+                nextPhoto();
+            }, 4500);
         }
 
         function stopSlideshow() {
             clearInterval(slideshowInterval);
         }
 
+        function resetSlideshow() {
+            stopSlideshow();
+            startSlideshow();
+        }
+
         function renderDetail(id) {
-            const p = propiedades.find(x => x.id === id);
-            if (!p) return renderHome();
+            currentProperty = propiedades.find(x => x.id === id);
+            if (!currentProperty) return renderHome();
             document.getElementById('main-view').classList.add('hidden');
             document.getElementById('detail-view').classList.remove('hidden');
             
-            const esVIS = p.precio <= 262635750 ? `<div class="bg-green-600 text-white p-4 text-[11px] font-black uppercase mb-8 tracking-widest text-center shadow-lg">PROPIEDAD APTA PARA SUBSIDIOS DE VIVIENDA 2026</div>` : '';
+            const esVIS = currentProperty.precio <= 262635750 ? `<div class="bg-green-600 text-white p-4 text-[11px] font-black uppercase mb-8 tracking-widest text-center shadow-lg">PROPIEDAD APTA PARA SUBSIDIOS DE VIVIENDA 2026</div>` : '';
 
             document.getElementById('detail-content').innerHTML = `
                 <div class="grid lg:grid-cols-2 gap-16 text-left">
                     <div>
-                        <img id="main-photo" src="${p.fotos[0]}" class="w-full h-[550px] object-cover shadow-2xl mb-6 border-b-8 border-monteclaro-blue">
+                        <div class="relative group h-[550px] overflow-hidden border-b-8 border-monteclaro-blue shadow-2xl mb-6 bg-gray-100">
+                            <img id="main-photo" src="${currentProperty.fotos[0]}" class="w-full h-full object-cover">
+                            
+                            <div class="nav-arrow left-0" onclick="prevPhoto()"><i class="fas fa-chevron-left"></i></div>
+                            <div class="nav-arrow right-0" onclick="nextPhoto()"><i class="fas fa-chevron-right"></i></div>
+                        </div>
+
                         <div class="flex flex-wrap gap-3 mb-10">
-                            ${p.fotos.map((f, i) => `<img src="${f}" class="h-24 w-24 object-cover thumb-img border-2 border-monteclaro-silver transition" onclick="changeMainImage('${f}', ${i})">`).join('')}
+                            ${currentProperty.fotos.map((f, i) => `<img src="${f}" class="h-24 w-24 object-cover thumb-img border-2 border-monteclaro-silver" onclick="changeMainImage(${i})">`).join('')}
                         </div>
-                        <h3 class="font-black uppercase text-xs mb-4 tracking-widest text-black">Descripción Técnica</h3>
-                        <p class="text-gray-600 text-sm leading-loose mb-12 text-justify italic font-medium">${p.descripcion}</p>
-                        <div class="aspect-video bg-gray-100 shadow-2xl border-4 border-black">
-                            <iframe width="100%" height="100%" src="${p.video}" frameborder="0" allowfullscreen></iframe>
-                        </div>
+                        <h3 class="font-black uppercase text-xs mb-4 tracking-widest text-black font-black">Descripción Técnica</h3>
+                        <p class="text-gray-600 text-sm leading-loose mb-12 text-justify italic font-black font-medium">${currentProperty.descripcion}</p>
+                        <div class="aspect-video bg-gray-100 shadow-2xl border-4 border-black"><iframe width="100%" height="100%" src="${currentProperty.video}" frameborder="0" allowfullscreen></iframe></div>
                     </div>
 
-                    <div class="flex flex-col text-black">
-                        <span class="text-monteclaro-blue font-black text-xs uppercase tracking-[0.3em] mb-4 font-black">${p.negocio} | ${p.tipo}</span>
-                        <h2 class="text-5xl font-black uppercase tracking-tightest leading-none mb-6 font-black">${p.titulo}</h2>
-                        <p class="text-5xl font-black text-black mb-8 leading-none font-black">$${p.precio.toLocaleString()}</p>
+                    <div class="flex flex-col text-black font-black">
+                        <span class="text-monteclaro-blue font-black text-xs uppercase tracking-[0.3em] mb-4">${currentProperty.negocio} | ${currentProperty.tipo}</span>
+                        <h2 class="text-5xl font-black uppercase tracking-tightest leading-none mb-6 text-black">${currentProperty.titulo}</h2>
+                        <p class="text-5xl font-black text-black mb-8 leading-none font-black">$${currentProperty.precio.toLocaleString()}</p>
                         ${esVIS}
                         
-                        <div class="grid grid-cols-3 gap-6 border-y-2 border-gray-100 py-8 mb-10 text-center text-[11px] font-black uppercase tracking-widest text-black">
-                            <div>SUPERFICIE <br><span class="text-xl text-monteclaro-blue font-black">${p.area}m²</span></div>
-                            <div class="border-x-2 border-gray-100">HABITACIONES <br><span class="text-xl text-monteclaro-blue font-black">${p.alcobas}</span></div>
-                            <div>BAÑOS <br><span class="text-xl text-monteclaro-blue font-black">${p.banos}</span></div>
-                        </div>
-
-                        <div class="bg-white p-8 border border-monteclaro-silver shadow-2xl mt-4">
-                            <h3 class="text-lg font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block text-black font-black">Contáctanos</h3>
+                        <div class="bg-white p-8 border border-monteclaro-silver shadow-2xl mt-4 font-black">
+                            <h3 class="text-lg font-black uppercase mb-6 border-b-2 border-monteclaro-blue inline-block font-black text-black">Contáctanos</h3>
                             <form class="space-y-5">
-                                <div><label class="form-label font-black">Tu nombre *</label><input type="text" placeholder="ESCRIBE TU NOMBRE" required></div>
-                                <div><label class="form-label font-black">Correo electrónico *</label><input type="email" placeholder="ESCRIBE TU CORREO" required></div>
-                                <div><label class="form-label font-black">Número de teléfono *</label>
-                                    <div class="flex gap-2"><select class="w-24 bg-gray-50 text-[10px] font-black"><option>🇨🇴 +57</option></select><input type="tel" placeholder="ESCRIBE TU TELÉFONO" class="flex-1" required></div>
+                                <div><label class="form-label font-black">Nombre completo <span class="text-red-600 font-black">*</span></label><input type="text" placeholder="ESCRIBE TU NOMBRE" required></div>
+                                <div><label class="form-label font-black">Correo <span class="text-red-600 font-black">*</span></label><input type="email" placeholder="ESCRIBE TU CORREO" required></div>
+                                <div><label class="form-label font-black">Número <span class="text-red-600 font-black">*</span></label>
+                                    <div class="flex gap-2"><select class="w-24 bg-gray-50 text-[10px] font-black"><option>🇨🇴 +57</option></select><input type="tel" placeholder="NÚMERO" class="flex-1" required></div>
                                 </div>
-                                <div><label class="form-label font-black">Mensaje *</label><textarea rows="4" placeholder="ESTOY INTERESADO EN: ${p.titulo.toUpperCase()}" required></textarea></div>
-                                <button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-xs tracking-widest hover:bg-monteclaro-blue transition-all font-black shadow-xl">Enviar mensaje</button>
+                                <div><label class="form-label font-black">Mensaje <span class="text-red-600 font-black">*</span></label><textarea rows="3" placeholder="ME INTERESA: ${currentProperty.titulo.toUpperCase()}" required></textarea></div>
+                                <button type="submit" class="w-full bg-black text-white py-5 font-black uppercase text-xs tracking-widest hover:bg-monteclaro-blue transition-all font-black">Enviar mensaje</button>
                             </form>
+                            <div class="mt-8 pt-8 border-t border-gray-100 flex justify-between items-center text-black font-black">
+                                <a href="https://wa.me/573332581313?text=Interés%20en:%20${currentProperty.titulo}" class="text-monteclaro-blue font-black text-[10px] uppercase hover:underline"><i class="fab fa-whatsapp mr-2"></i>WhatsApp Directo</a>
+                                <p class="text-[9px] font-bold text-gray-400 uppercase">Ref: 2026-MC-${currentProperty.id}</p>
+                            </div>
                         </div>
                     </div>
                 </div>`;
             
-            startSlideshow(p);
+            startSlideshow();
         }
 
         function populateFilters() {
@@ -239,15 +251,14 @@
                 list.forEach(i => opts += `<option value="${i}">${i}</option>`);
                 c.innerHTML += `<div class="space-y-1"><label>${f}:</label><select id="f-${f}" class="w-full p-2 outline-none border-b-2 border-black font-black">${opts}</select></div>`;
             });
-            c.innerHTML += `<div class="space-y-1"><label>Precio Mín:</label><input type="number" id="f-min" class="w-full p-2 outline-none border-b-2 border-black font-black" placeholder="DESDE"></div>`;
-            c.innerHTML += `<div class="space-y-1"><label>Precio Máx:</label><input type="number" id="f-max" class="w-full p-2 outline-none border-b-2 border-black font-black" placeholder="HASTA"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>Precio Mín:</label><input type="number" id="f-min" placeholder="DESDE" class="w-full p-2 outline-none border-b-2 border-black font-black"></div>`;
+            c.innerHTML += `<div class="space-y-1"><label>Precio Máx:</label><input type="number" id="f-max" placeholder="HASTA" class="w-full p-2 outline-none border-b-2 border-black font-black"></div>`;
         }
 
         function applyFilters() {
             const g = (id) => document.getElementById(id).value;
             const res = propiedades.filter(p => {
                 return (g('f-ciudad') === "" || p.ciudad === g('f-ciudad')) &&
-                       (g('f-negocio') === "" || p.negocio === g('f-negocio')) &&
                        (g('f-min') === "" || p.precio >= Number(g('f-min'))) &&
                        (g('f-max') === "" || p.precio <= Number(g('f-max')));
             });
